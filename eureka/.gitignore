@@ -1,0 +1,41 @@
+target/
+!**/src/main/**
+!**/src/test/**
+logs/
+**/bootstrap.properties
+**/application.properties
+**/application.yml
+**/file.conf
+**/registry.conf
+
+
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+build/
+
+### VS Code ###
+.vscode/
+
+
+### Mac ###
+.DS_Store
+**/*.icloud
