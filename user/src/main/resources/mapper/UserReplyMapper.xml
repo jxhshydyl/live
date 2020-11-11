@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ex.user.mapper.UserReplyMapper">
+    <sql id="tableName">
+        user_reply
+    </sql>
+
+    <sql id="baseColumn">
+        id,dynamic_id,comment_id,parent_id,user_id,head_portrait,nick_name,comment,status,reply_count,create_time,update_time
+    </sql>
+
+</mapper>

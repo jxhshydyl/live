@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ex.user.mapper.UserAuthMapper">
+    <sql id="tableName">
+        user_auth
+    </sql>
+
+    <sql id="baseColumn">
+        id,user_id,user_name,countryCode,card_type,real_name,card_number,card_img,create_time,status,fail_reason,admin_id,auth_time
+    </sql>
+
+</mapper>

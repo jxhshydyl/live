@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ex.user.mapper.UserFriendMapper">
+    <sql id="tableName">
+        user_friend
+    </sql>
+
+    <sql id="baseColumn">
+        id,group_id,group_name,user_id,friend_user_id,friend_nick_name,friend_head_portrait,status,create_time,update_time
+    </sql>
+
+</mapper>

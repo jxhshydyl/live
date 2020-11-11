@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ex.user.mapper.UserMapper">
+    <sql id="tableName">
+        user
+    </sql>
+
+    <sql id="baseColumn">
+        id,user_type,user_name,mobile,email,nick_name,head_portrait,sex,location,country_code,login_pwd,login_pwd_level,safe_pwd,safe_pwd_level,is_deleted,is_lock,recommend_id,recommend_code,google_secret,mobile_auth,email_auth,real_auth,real_name,card_id,vip_level,experience_level,login_auth,register_time,register_ip,last_login_time,last_login_ip,withdraw
+    </sql>
+
+</mapper>
