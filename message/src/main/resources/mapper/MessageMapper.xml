@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.ex.user.mapper.UserAttentionMapper">
+<mapper namespace="com.ex.message.mapper.MessageMapper">
     <sql id="tableName">
         user_attention
     </sql>
@@ -8,5 +8,32 @@
     <sql id="baseColumn">
         id,user_id,attention_user_id,status,create_time,update_time
     </sql>
+
+    <select id="selectNonSuccess" resultType="com.ex.model.entity.message.Message">
+        select * from message
+        where status != 1 and FAIL_TIMES &lt; #{failTimes} and RECEIVE_ADDR != ''
+        and GMT_CREATE &gt;= #{fiveBefore} and GMT_CREATE &lt;  #{now} order by id asc limit 30
+    </select>
+
+    <update id="updateMessage">
+        update message
+        <set>
+            <if test="status != null">
+                STATUS = #{status},
+            </if>
+            <if test="failTimes != null">
+                FAIL_TIMES = #{failTimes}+FAIL_TIMES,
+            </if>
+            <if test="sendTime != null">
+                SEND_TIME = #{sendTime},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <select id="selectGtIdNonSuccess" resultType="com.ex.model.entity.message.Message">
+        select * from message
+        where status != 1 and FAIL_TIMES &lt; #{failTimes} and ID &gt; #{lastId} order by id asc limit 30
+    </select>
 
 </mapper>
