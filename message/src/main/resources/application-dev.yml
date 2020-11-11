@@ -1,0 +1,124 @@
+server:
+  port: 0
+  index: 1       # 集群下的服务器索引、用来唯一化instance-id以及避免重复执行工作
+  tomcat: 
+    max-threads: 10
+
+mybatis: 
+  mapper-locations: classpath:/mapper/*Mapper.xml
+  type-aliases-package: com.yijiu.eotc.mgs.entities.dos
+  configuration:
+    # 这个配置会将执行的sql打印出来，在开发或测试的时候可以用
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+dubbo:
+  application:
+    name: eotc-mgs
+  registry:
+    protocol: zookeeper
+    address: zk.atop.dns:2181
+  protocol:
+    name: dubbo
+    port: 20886
+  retries: 
+    provider: 1
+    consumer: 1
+  timeout: 
+    provider: 3000
+    consumer: 3000 
+      
+spring:
+   main:
+      allow-bean-definition-overriding: true
+   application:
+      name: eotc-mgs
+   messages:
+    basename: templete
+    encoding: UTF-8
+    cache-duration: 3600
+   jackson:
+      time-zone: GMT+8
+      date-format: yyyy-MM-dd HH:mm:ss
+   datasource:
+    url: jdbc:mysql://mysql-mgs.atop.dns:3306/mgs?useAffectedRows=true&useUnicode=yes&characterEncoding=UTF8&useSSL=false&serverTimezone=GMT%2B8&amp
+    username: root
+    password: O9PkRC1X
+    driver-class-name: com.mysql.cj.jdbc.Driver     
+    hikari:
+      max-lifetime: 1800000
+      maximum-pool-size: 4
+      minimum-idle: 1
+      idle-timeout: 180000
+      connection-timeout: 5000 
+   redis: 
+     database: 0  
+     host: redis.atop.dns 
+     port: 6379  
+     jedis: 
+      pool: 
+       max-active: 200 
+       max-wait: -1 
+       max-idle: 10 
+       min-idle: 1  
+     timeout: 1000
+     password: O9PkRC1X
+   rabbitmq:
+        host: rabbitmq.atop.dns
+        port: 5672
+        username: admin
+        password: heBH9vvF
+        virtual-host: /
+        publisher-confirms: true
+        publisher-returns: true  
+        listener:
+             simple: 
+                  acknowledge-mode: manual 
+                  prefetch: 3    
+                  retry:
+                        enabled: true                       
+                        initial-interval: 1000                    
+                        max-attempts: 3 
+        template:  
+             retry:
+                 enabled: true 
+                 initial-interval: 500
+                 max-interval: 500                         
+        destinations: 
+            msg:
+                exchange: mgs_message_exchange
+                routkey: mgs_message_key
+                queue: mgs_message_queue
+                type: direct
+
+
+#消息配置
+app:
+  message:
+    #美联
+    ml:
+      domain:
+      smsApiUser: 15607923228
+      smsApiKey: 6af8bcec10afd151364f66d76cde8c0d
+      smsApiPassword: asdf1234
+      smsApiUrl: http://hk.5c.com.cn/api/send/index.php
+    #赛邮
+    sy:
+      smsSyAppId: 51072
+      smsSySignature: 3e3d3c9ee65d74d02062b7ce0a9d5333
+      smsSyApiUrl: https://api.mysubmail.com/message/send
+    email:
+      emailFrom: support@a.top
+      emailNickName: top
+      emailUserName: top_mail
+      emailPassword: qn
+      emailProtocol: 1
+      emailHost: smtp2525.sendcloud.net
+      emailPort: 2525
+      emailSslEnable: false
+    maxFailResendTime: 3
+    channel: 1
+    times: 20
+#日志信息
+logging: 
+  config: classpath:logback-spring.xml
+  path: /tmp/logs/mgs
