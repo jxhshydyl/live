@@ -1,0 +1,18 @@
+package com.yibu.dex.rpc.message;
+
+import com.ex.model.entity.message.Message;
+import com.ex.model.vo.ResultVO;
+import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.web.bind.annotation.PostMapping;
+
+/**
+ * @Classname MessageFeign
+ * @Description TODO
+ * @Date 2020/11/11 19:04
+ */
+@FeignClient("message")
+public interface MessageFeign {
+
+    @PostMapping("/message")
+    ResultVO sendMessage(Message message);
+}

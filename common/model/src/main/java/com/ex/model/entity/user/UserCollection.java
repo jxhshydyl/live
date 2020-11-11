@@ -13,7 +13,6 @@ import lombok.experimental.Accessors;
 /**
  * 用户收藏列表(user_collection)实体类
  *
- * @author jxhshydyl
  * @since 2020-11-11 18:24:23
  * @description 由 Mybatisplus Code Generator 创建
  */

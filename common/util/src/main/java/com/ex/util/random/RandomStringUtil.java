@@ -6,7 +6,6 @@ import java.util.Random;
  * @Classname RandomStringUtil
  * @Description TODO
  * @Date 2020/11/3 20:43
- * @Author by liuweipeng
  */
 public class RandomStringUtil {
 

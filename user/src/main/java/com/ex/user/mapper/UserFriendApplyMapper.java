@@ -7,7 +7,6 @@ import org.apache.ibatis.annotations.Mapper;
 /**
  * (user_friend_apply)数据Mapper
  *
- * @author jxhshydyl
  * @since 2020-11-11 18:24:23
  * @description 由 Mybatisplus Code Generator 创建
 */

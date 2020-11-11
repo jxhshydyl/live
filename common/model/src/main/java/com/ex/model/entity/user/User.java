@@ -1,18 +1,17 @@
 package com.ex.model.entity.user;
 
-import java.io.Serializable;
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.baomidou.mybatisplus.extension.activerecord.Model;
-import java.util.Date;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 
+import java.util.Date;
+
 /**
  * (user)实体类
  *
- * @author jxhshydyl
  * @since 2020-11-11 18:24:22
  * @description 由 Mybatisplus Code Generator 创建
  */
@@ -20,13 +19,12 @@ import lombok.experimental.Accessors;
 @NoArgsConstructor
 @Accessors(chain = true)
 @TableName("user")
-public class User extends Model<User> implements Serializable {
-    private static final long serialVersionUID = 1L;
+public class User {
 
     /**
      * 用户Id
      */
-    @TableId
+    @TableId(type = IdType.AUTO)
 	private Long id;
     /**
      * 用户名类型 1：手机号码，2：邮箱

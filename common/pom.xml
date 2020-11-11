@@ -15,6 +15,7 @@
     <modules>
         <module>util</module>
         <module>model</module>
+        <module>feign-rpc</module>
     </modules>
 
 </project>

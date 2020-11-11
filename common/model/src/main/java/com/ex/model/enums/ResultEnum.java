@@ -5,7 +5,8 @@ import java.util.Map;
 
 public enum ResultEnum {
 
-    /***/
+    /**user*/
+    USER_NAME_EXISTS(10001,"用户名已存在"),
     fail(40100, "操作失败"),
     needImgCode(40101, "请输入正确的图形验证码"),
     needGoogleAuth(40102, "需要Google验证"),
@@ -37,9 +38,6 @@ public enum ResultEnum {
     systemError(40400, "系统繁忙，请稍后再试"),
     gatewayNotFound(40401, "服务未找到"),
     wrongParam(40601, "参数错误"),
-    marketClosed(40602, "市场暂未开放交易"),
-    faildMinAmount(40603, "委托数量不能低于系统设置最小委托数量"),
-    faildMultError(42901, "操作过于频繁，请稍后再试"),
 
     serverError(50001, "系统错误"),
     serverFallback(50002, "服务异常"),
@@ -51,19 +49,6 @@ public enum ResultEnum {
     marketAlreadyExists(223100, "市场已存在"),
     coinAlreadyExists(223101, "币种已存在"),
     sysUserAlreadyExists(223102, "用户已存在"),
-    /*market*/
-    marketNotExists(223102, "市场不存在"),
-    /*entrust*/
-    notConformBatchEntrustNumLimit(40200, "不符合批量下单数量限制"),
-    entrustNumCannotBeLessThan0(40201, "委托数量不能小于0"),
-    failedToAddEntrust(40202, "添加委托失败"),
-    orderInfoNotExist(40203, "委托单信息不存在"),
-    entrustHasCancelled(40204, "该单已撤销，请勿重复操作！"),
-    entrustHasMatched(40205, "该单已撮合完成"),
-    entrustPriceCannotBeLessThan0(40206, "委托价格不能小于0"),
-    wrongEntrustType(40207, "委托类型错误"),
-    /*fund*/
-    failedToFreezeFunds(40604, "冻结资金失败"),
     /*base*/
     success(200, "成功"),
     /*wallet*/
