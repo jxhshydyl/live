@@ -1,4 +1,0 @@
-2020-11-12 23:34:57.977 [main] WARN  o.springframework.boot.actuate.endpoint.EndpointId - Endpoint ID 'service-registry' contains invalid characters, please migrate to a valid format.
-2020-11-12 23:34:58.061 [main] WARN  o.springframework.boot.actuate.endpoint.EndpointId - Endpoint ID 'hystrix.stream' contains invalid characters, please migrate to a valid format.
-2020-11-12 23:35:00.232 [main] WARN  com.netflix.config.sources.URLConfigurationSource - No URLs will be polled as dynamic configuration sources.
-2020-11-12 23:35:00.239 [main] WARN  com.netflix.config.sources.URLConfigurationSource - No URLs will be polled as dynamic configuration sources.
