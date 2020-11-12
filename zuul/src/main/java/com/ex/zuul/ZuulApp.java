@@ -18,7 +18,7 @@ import com.alicp.jetcache.anno.config.EnableMethodCache;
 @EnableDiscoveryClient
 @EnableFeignClients
 @EnableCircuitBreaker
-@EnableMethodCache(basePackages = "com.meizan.zuul")
+@EnableMethodCache(basePackages = "com.ex.zuul")
 @EnableCreateCacheAnnotation
 @EnableHystrix
 public class ZuulApp {

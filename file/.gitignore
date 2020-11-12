@@ -1,8 +1,13 @@
-HELP.md
 target/
-!.mvn/wrapper/maven-wrapper.jar
-!**/src/main/**/target/
-!**/src/test/**/target/
+!**/src/main/**
+!**/src/test/**
+logs/
+**/bootstrap.properties
+**/application.properties
+**/application.yml
+**/file.conf
+**/registry.conf
+
 
 ### STS ###
 .apt_generated
@@ -26,8 +31,11 @@ target/
 /nbdist/
 /.nb-gradle/
 build/
-!**/src/main/**/build/
-!**/src/test/**/build/
 
 ### VS Code ###
 .vscode/
+
+
+### Mac ###
+.DS_Store
+**/*.icloud
