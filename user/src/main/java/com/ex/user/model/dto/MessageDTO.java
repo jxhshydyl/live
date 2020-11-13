@@ -11,10 +11,11 @@ import java.util.Date;
  */
 @Data
 public class MessageDTO {
-    private Integer type;
+    /**
+     * 发送短信的类型 EnumMessageBusinessType
+     */
+    private Integer businessType;
     private String countryCode;
     private String receiveAddress;
-    private String title;
-    private String context;
     private String ip;
 }

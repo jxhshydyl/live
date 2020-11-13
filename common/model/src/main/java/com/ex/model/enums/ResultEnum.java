@@ -6,9 +6,11 @@ import java.util.Map;
 public enum ResultEnum {
 
     /**user*/
+    USER_NOT(10000,"用户不存在"),
     USER_NAME_EXISTS(10001,"用户名已存在"),
     USER_AUTH_PASS(10002,"用户已经实名认证"),
     USER_CART_NUMBER_USED(10003,"证件号已被认证"),
+    MESSAGE_TYPE_ERROR(10004,"短信验证码类型错误"),
     fail(40100, "操作失败"),
     needImgCode(40101, "请输入正确的图形验证码"),
     needGoogleAuth(40102, "需要Google验证"),

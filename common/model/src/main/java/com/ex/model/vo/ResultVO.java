@@ -57,4 +57,8 @@ public class ResultVO {
     public void setTimestamp(long timestamp) {
         this.timestamp = timestamp;
     }
+
+    public boolean isSuccess(){
+        return status == 200;
+    }
 }
