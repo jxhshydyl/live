@@ -20,6 +20,10 @@ public class UserDTO {
      */
     private String userName;
     /**
+     * 密码
+     */
+    private String loginPwd;
+    /**
      * 手机号码
      */
     private String mobile;

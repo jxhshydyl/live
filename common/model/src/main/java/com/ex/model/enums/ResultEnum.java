@@ -11,6 +11,7 @@ public enum ResultEnum {
     USER_AUTH_PASS(10002,"用户已经实名认证"),
     USER_CART_NUMBER_USED(10003,"证件号已被认证"),
     MESSAGE_TYPE_ERROR(10004,"短信验证码类型错误"),
+    MOBILE_USED(10005,"手机号已被使用"),
     fail(40100, "操作失败"),
     needImgCode(40101, "请输入正确的图形验证码"),
     needGoogleAuth(40102, "需要Google验证"),

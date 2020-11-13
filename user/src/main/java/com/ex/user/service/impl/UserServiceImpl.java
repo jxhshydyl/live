@@ -16,11 +16,14 @@ import com.ex.user.mapper.UserMapper;
 import com.ex.user.model.dto.MessageDTO;
 import com.ex.user.model.dto.UserDTO;
 import com.ex.user.service.UserService;
+import com.ex.user.util.ShareCodeUtil;
+import com.ex.util.encrypt.EncryptUtil;
 import com.yibu.dex.rpc.message.MessageFeign;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.concurrent.TimeUnit;
 
@@ -88,12 +91,13 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public ResultVO register(UserDTO userDTO) {
         User user = userMapper.selectOne(new LambdaQueryWrapper<User>().eq(User::getUserName, userDTO.getUserName()));
         if (user != null) {
             return Result.error(ResultEnum.USER_NAME_EXISTS);
         }
-        //todo 校验验证码
+        // TODO: 2020/11/14   校验验证码
         user = new User();
         user.setUserName(userDTO.getUserName());
         user.setNickName(userDTO.getNickName());
@@ -101,6 +105,10 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         user.setLocation(userDTO.getLocation());
         user.setSex(userDTO.getSex());
         userMapper.insert(user);
+        user.setRecommendCode(ShareCodeUtil.idToCode(user.getId()));
+        String password = EncryptUtil.SHA256(EncryptUtil.MD5(String.valueOf(user.getId())) + EncryptUtil.SHA(user.getLoginPwd()));
+        user.setLoginPwd(password);
+        userMapper.updateById(user);
         return Result.success();
     }
 }

@@ -1,20 +1,21 @@
 package com.ex.model.entity.user;
 
-import java.io.Serializable;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
-import java.util.Date;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 
+import java.io.Serializable;
+import java.util.Date;
+
 /**
  * (user_info)实体类
  *
- * @since 2020-11-11 18:24:23
  * @description 由 Mybatisplus Code Generator 创建
+ * @since 2020-11-11 18:24:23
  */
 @Data
 @NoArgsConstructor
@@ -27,7 +28,7 @@ public class UserInfo extends Model<UserInfo> implements Serializable {
      * id
      */
     @TableId
-	private Long id;
+    private Long id;
     /**
      * userId
      */
@@ -57,6 +58,18 @@ public class UserInfo extends Model<UserInfo> implements Serializable {
      */
     private Integer fansCount;
     /**
+     * VIP 等级
+     */
+    private Integer vipLevel;
+    /**
+     * 经验等级
+     */
+    private Integer experienceLevel;
+    /**
+     * 经验值
+     */
+    private Integer experienceValue;
+    /**
      * createTime
      */
     private Date createTime;
@@ -64,6 +77,6 @@ public class UserInfo extends Model<UserInfo> implements Serializable {
      * updateTime
      */
     @TableField(update = "now()")
-	private Date updateTime;
+    private Date updateTime;
 
 }

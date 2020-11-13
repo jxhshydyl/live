@@ -71,14 +71,6 @@ public class User {
      */
     private Integer loginPwdLevel;
     /**
-     * 资金密码
-     */
-    private String safePwd;
-    /**
-     * 安全密码强度
-     */
-    private Integer safePwdLevel;
-    /**
      * 是否删除(0未删除，1删除)
      */
     private Integer isDeleted;
@@ -94,10 +86,6 @@ public class User {
      * recommendCode
      */
     private String recommendCode;
-    /**
-     * google秘钥
-     */
-    private String googleSecret;
     /**
      * 是否手机认证(0为未认证，1为已认证)
      */
@@ -118,18 +106,6 @@ public class User {
      * 身份证号码
      */
     private String cardId;
-    /**
-     * vip等级
-     */
-    private Integer vipLevel;
-    /**
-     * 经验等级
-     */
-    private Integer experienceLevel;
-    /**
-     * 登录验证策略（1.密码（默认）2.密码+Google验证码3.密码+异地登录验证4. 密码+Google验证码+异地登录验证）
-     */
-    private Integer loginAuth;
     /**
      * 注册时间
      */
