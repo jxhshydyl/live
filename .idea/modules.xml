@@ -7,7 +7,7 @@
       <module fileurl="file://$PROJECT_DIR$/eureka/eureka.iml" filepath="$PROJECT_DIR$/eureka/eureka.iml" />
       <module fileurl="file://$PROJECT_DIR$/common/feign-rpc/feign-rpc.iml" filepath="$PROJECT_DIR$/common/feign-rpc/feign-rpc.iml" />
       <module fileurl="file://$PROJECT_DIR$/file/file.iml" filepath="$PROJECT_DIR$/file/file.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/live.iml" filepath="$PROJECT_DIR$/.idea/live.iml" />
+      <module fileurl="file://$PROJECT_DIR$/live.iml" filepath="$PROJECT_DIR$/live.iml" />
       <module fileurl="file://$PROJECT_DIR$/message/message.iml" filepath="$PROJECT_DIR$/message/message.iml" />
       <module fileurl="file://$PROJECT_DIR$/common/model/model.iml" filepath="$PROJECT_DIR$/common/model/model.iml" />
       <module fileurl="file://$PROJECT_DIR$/netty/netty.iml" filepath="$PROJECT_DIR$/netty/netty.iml" />

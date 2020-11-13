@@ -30,7 +30,8 @@ public class UserController {
 
     @PostMapping("/user/send/message")
     public ResultVO sendMessage(MessageDTO messageDTO) {
-        return userService.sendMessage(messageDTO);
+        boolean isLogin = false;
+        return userService.sendMessage(isLogin,messageDTO);
     }
 
     @PostMapping("/user/register")

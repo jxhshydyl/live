@@ -11,12 +11,12 @@ import com.ex.user.model.dto.UserDTO;
 /**
  * 服务接口
  *
- * @since 2020-11-11 18:24:22
  * @description 由 Mybatisplus Code Generator 创建
+ * @since 2020-11-11 18:24:22
  */
 public interface UserService extends IService<User> {
 
-    ResultVO sendMessage(MessageDTO messageDTO);
+    ResultVO sendMessage(boolean isLogin, MessageDTO messageDTO);
 
     ResultVO register(UserDTO userDTO);
 

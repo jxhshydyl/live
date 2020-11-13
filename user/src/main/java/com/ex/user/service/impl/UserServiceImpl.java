@@ -34,7 +34,14 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     private UserMapper userMapper;
 
     @Override
-    public ResultVO sendMessage(MessageDTO messageDTO) {
+    public ResultVO sendMessage(boolean isLogin, MessageDTO messageDTO) {
+        //登录发送短信
+        if (isLogin) {
+
+            //未登录发送短信
+        } else {
+
+        }
         Message message = new Message();
         return messageFeign.sendMessage(message);
     }
