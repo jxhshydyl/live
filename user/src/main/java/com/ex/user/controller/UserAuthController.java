@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -18,15 +19,15 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @Slf4j
 @RestController
-public class UserAuthController {
+@RequestMapping("user/api/{device}/{version}")
+public class UserAuthController extends BaseController{
 
     @Autowired
     private UserAuthService userAuthService;
 
-    @PostMapping("/user/auth")
+    @PostMapping("/auth")
     public ResultVO submitAuth(@RequestBody @Validated UserAuthDTO userAuthDTO) {
-        //todo 获取用户id
-        userAuthDTO.setUserId(null);
+        userAuthDTO.setUserId(getUid());
         return userAuthService.submitAuth(userAuthDTO);
     }
 }

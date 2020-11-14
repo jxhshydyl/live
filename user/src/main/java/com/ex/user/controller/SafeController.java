@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("user/api/{device}/{version}")
-public class SafeController {
+public class SafeController extends BaseController {
 
     @Autowired
     UserService userService;
@@ -41,7 +41,7 @@ public class SafeController {
     public ResultVO doSetUserPwd(@PathVariable("device") String device,
                                  @PathVariable("version") String version,
                                  @RequestBody @Validated UpdateUserSafeDTO updateUserSafeDTO) {
-        Long userId = null;
+        Long userId = getUid();
         User user = userService.getById(userId);
         if (user == null) {
             return Result.error(ResultEnum.USER_NOT);
@@ -61,7 +61,7 @@ public class SafeController {
     @ResponseBody
     public ResultVO doAuthMobile(@PathVariable("device") String device,
                                  @RequestBody @Validated UpdateMobileDTO updateMobileDTO) {
-        Long userId = null;
+        Long userId = getUid();
         User user = userService.getById(userId);
         if (user == null) {
             return Result.error(ResultEnum.USER_NOT);

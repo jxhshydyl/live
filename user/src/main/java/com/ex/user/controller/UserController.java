@@ -12,6 +12,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -22,24 +23,25 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @Slf4j
 @RestController
-public class UserController {
+@RequestMapping("user/api/{device}/{version}")
+public class UserController extends BaseController {
 
     @Autowired
     private UserService userService;
 
 
-    @PostMapping("/user/send/message")
+    @PostMapping("/send/message")
     public ResultVO sendMessage(MessageDTO messageDTO) {
         boolean isLogin = false;
         return userService.sendMessage(isLogin,messageDTO);
     }
 
-    @PostMapping("/user/register")
+    @PostMapping("/register")
     public ResultVO register(UserDTO userDTO) {
         return userService.register(userDTO);
     }
 
-    @PostMapping("/user/login")
+    @PostMapping("/login")
     public ResultVO login() {
         return null;
     }

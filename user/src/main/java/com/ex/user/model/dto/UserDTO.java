@@ -2,8 +2,6 @@ package com.ex.user.model.dto;
 
 import lombok.Data;
 
-import java.util.Date;
-
 /**
  * @Classname UserDTO
  * @Description TODO
@@ -11,10 +9,6 @@ import java.util.Date;
  */
 @Data
 public class UserDTO {
-    /**
-     * 用户名类型 1：手机号码，2：邮箱
-     */
-    private Integer userType;
     /**
      * 手机号/邮箱
      */
@@ -51,12 +45,6 @@ public class UserDTO {
      * 国家代码
      */
     private String countryCode;
-    /**
-     * 注册时间
-     */
-    private Date registerTime;
-    /**
-     * 注册IP
-     */
-    private String registerIp;
+
+    private String recommendCode;
 }

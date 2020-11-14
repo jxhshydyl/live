@@ -1,33 +1,30 @@
 package com.ex.model.entity.user;
 
-import java.io.Serializable;
-
 import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.baomidou.mybatisplus.extension.activerecord.Model;
-import java.util.Date;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 
+import java.util.Date;
+
 /**
- * (user_dynamic)实体类
+ * (user_drafts)实体类
  *
- * @since 2020-11-11 18:24:23
  * @description 由 Mybatisplus Code Generator 创建
+ * @since 2020-11-14 10:55:07
  */
 @Data
 @NoArgsConstructor
 @Accessors(chain = true)
-@TableName("user_dynamic")
-public class UserDynamic{
+@TableName("user_drafts")
+public class UserDrafts {
     /**
      * id
      */
     @TableId(type = IdType.AUTO)
-	private Long id;
+    private Long id;
     /**
      * userId
      */
@@ -53,29 +50,9 @@ public class UserDynamic{
      */
     private String videoUrl;
     /**
-     * 点赞
-     */
-    private Long thumbsCount;
-    /**
-     * 评论数
-     */
-    private Integer commentCount;
-    /**
-     * 状态  0：不需要审核  1：草稿   2：待审核   3：审核通过   4：审核拒绝
-     */
-    private Integer status;
-    /**
      * 是否删除  0：未删除   1：删除
      */
     private Integer isDelete;
-    /**
-     * 审核时间
-     */
-    private Date auditTime;
-    /**
-     * 审核用户id
-     */
-    private Integer auditUserId;
     /**
      * createTime
      */
@@ -83,6 +60,6 @@ public class UserDynamic{
     /**
      * updateTime
      */
-	private Date updateTime;
+    private Date updateTime;
 
 }

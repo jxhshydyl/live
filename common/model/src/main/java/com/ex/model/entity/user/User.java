@@ -27,6 +27,10 @@ public class User {
     @TableId(type = IdType.AUTO)
 	private Long id;
     /**
+     * 0：普通用户   1：讲师
+     */
+    private Integer type;
+    /**
      * 用户名类型 1：手机号码，2：邮箱
      */
     private Integer userType;

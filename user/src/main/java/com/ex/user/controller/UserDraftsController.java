@@ -7,12 +7,12 @@ import org.springframework.web.bind.annotation.RestController;
 /**
  * 服务控制器
  *
- * @since 2020-11-11 18:24:23
  * @description 由 Mybatisplus Code Generator 创建
+ * @since 2020-11-14 10:55:07
  */
 @Slf4j
 @RestController
 @RequestMapping("user/api/{device}/{version}")
-public class UserFriendController{
+public class UserDraftsController extends BaseController {
 
 }

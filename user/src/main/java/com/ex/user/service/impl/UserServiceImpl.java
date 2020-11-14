@@ -1,7 +1,6 @@
 package com.ex.user.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.extension.conditions.query.LambdaQueryChainWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.ex.model.constant.RedisKeyConstant;
 import com.ex.model.constant.RedisTimeConstant;
@@ -20,6 +19,7 @@ import com.ex.user.util.ShareCodeUtil;
 import com.ex.util.encrypt.EncryptUtil;
 import com.yibu.dex.rpc.message.MessageFeign;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
@@ -97,13 +97,24 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         if (user != null) {
             return Result.error(ResultEnum.USER_NAME_EXISTS);
         }
-        // TODO: 2020/11/14   校验验证码
+        String recommendCode = userDTO.getRecommendCode();
+        Long recommendId = null;
+        if (StringUtils.isNotBlank(recommendCode)) {
+            User recommendUser = userMapper.selectOne(new LambdaQueryWrapper<User>().eq(User::getRecommendCode, recommendCode));
+            if (recommendUser == null) {
+                return Result.error(ResultEnum.USER_NAME_EXISTS);
+            }
+            recommendId = recommendUser.getId();
+        }
+        // TODO: 2020/11/14   校验短信验证码
+
         user = new User();
         user.setUserName(userDTO.getUserName());
         user.setNickName(userDTO.getNickName());
         user.setHeadPortrait(userDTO.getHeadPortrait());
         user.setLocation(userDTO.getLocation());
         user.setSex(userDTO.getSex());
+        user.setRecommendId(recommendId);
         userMapper.insert(user);
         user.setRecommendCode(ShareCodeUtil.idToCode(user.getId()));
         String password = EncryptUtil.SHA256(EncryptUtil.MD5(String.valueOf(user.getId())) + EncryptUtil.SHA(user.getLoginPwd()));

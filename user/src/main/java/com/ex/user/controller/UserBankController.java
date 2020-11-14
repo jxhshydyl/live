@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @Slf4j
 @RestController
-@RequestMapping("/userBank")
+@RequestMapping("user/api/{device}/{version}")
 public class UserBankController{
 
 }
