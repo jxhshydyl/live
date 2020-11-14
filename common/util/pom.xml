@@ -72,6 +72,7 @@
             <artifactId>spring-security-test</artifactId>
             <scope>test</scope>
         </dependency>
+        -->
         <dependency>
             <groupId>io.jsonwebtoken</groupId>
             <artifactId>jjwt-api</artifactId>
@@ -88,7 +89,7 @@
             <artifactId>jjwt-jackson</artifactId>
             <version>0.10.7</version>
             <scope>runtime</scope>
-        </dependency>-->
+        </dependency>
         <!--权限相关-->
     </dependencies>
 

@@ -1,32 +1,30 @@
 package com.ex.model.entity.user;
 
-import java.io.Serializable;
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.baomidou.mybatisplus.extension.activerecord.Model;
-import java.util.Date;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 
+import java.util.Date;
+
 /**
  * (user_bank)实体类
  *
- * @since 2020-11-11 18:24:22
  * @description 由 Mybatisplus Code Generator 创建
+ * @since 2020-11-11 18:24:22
  */
 @Data
 @NoArgsConstructor
 @Accessors(chain = true)
 @TableName("user_bank")
-public class UserBank extends Model<UserBank> implements Serializable {
-    private static final long serialVersionUID = 1L;
-
+public class UserBank {
     /**
      * id
      */
-    @TableId
-	private Long id;
+    @TableId(type = IdType.AUTO)
+    private Long id;
     /**
      * 用户id
      */
@@ -52,6 +50,10 @@ public class UserBank extends Model<UserBank> implements Serializable {
      */
     private String openBank;
     /**
+     * 支行
+     */
+    private String branchBank;
+    /**
      * 账号
      */
     private String account;
@@ -75,5 +77,6 @@ public class UserBank extends Model<UserBank> implements Serializable {
      * 是否删除  1：删除  0：正常
      */
     private Integer isDeleted;
-
+    private Date createTime;
+    private Date updateTime;
 }

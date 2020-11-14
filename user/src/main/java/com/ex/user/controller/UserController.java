@@ -5,15 +5,14 @@ import com.ex.model.vo.Result;
 import com.ex.model.vo.ResultVO;
 import com.ex.user.model.dto.MessageDTO;
 import com.ex.user.model.dto.UserDTO;
+import com.ex.user.model.dto.UserLoginDTO;
 import com.ex.user.model.vo.UserVO;
 import com.ex.user.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * 服务控制器
@@ -29,11 +28,10 @@ public class UserController extends BaseController {
     @Autowired
     private UserService userService;
 
-
     @PostMapping("/send/message")
     public ResultVO sendMessage(MessageDTO messageDTO) {
         boolean isLogin = false;
-        return userService.sendMessage(isLogin,messageDTO);
+        return userService.sendMessage(isLogin, messageDTO);
     }
 
     @PostMapping("/register")
@@ -42,8 +40,13 @@ public class UserController extends BaseController {
     }
 
     @PostMapping("/login")
-    public ResultVO login() {
-        return null;
+    public ResultVO loginByPassWord(@RequestBody @Validated UserLoginDTO userLoginDTO) {
+        return userService.loginByPassWord(userLoginDTO);
+    }
+
+    @PostMapping("/login/code")
+    public ResultVO loginByCode(@RequestBody @Validated UserLoginDTO userLoginDTO) {
+        return userService.loginByCode(userLoginDTO);
     }
 
     @GetMapping

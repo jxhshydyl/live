@@ -7,6 +7,7 @@ import com.ex.model.entity.user.User;
 import com.ex.model.vo.ResultVO;
 import com.ex.user.model.dto.MessageDTO;
 import com.ex.user.model.dto.UserDTO;
+import com.ex.user.model.dto.UserLoginDTO;
 
 /**
  * 服务接口
@@ -20,4 +21,7 @@ public interface UserService extends IService<User> {
 
     ResultVO register(UserDTO userDTO);
 
+    ResultVO loginByPassWord(UserLoginDTO userLoginDTO);
+
+    ResultVO loginByCode(UserLoginDTO userLoginDTO);
 }

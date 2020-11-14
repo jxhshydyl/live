@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 public enum ResultEnum {
+    /**base*/
+    FAIL(40100, "操作失败"),
 
     /**user*/
     USER_NOT(10000,"用户不存在"),
@@ -14,7 +16,9 @@ public enum ResultEnum {
     MOBILE_USED(10005,"手机号已被使用"),
     USER_SUB_CODE_FAIL(10006,"生成订阅码失败"),
     USER_NOT_SUB_CODE(10007,"用户未生成该订阅码"),
-    fail(40100, "操作失败"),
+    USER_PASSWORD_INPUT_ERROR(10008,"用户密码输入错误次数过多"),
+    USER_NOT_LOGIN(10009,"用户未登录"),
+
     needImgCode(40101, "请输入正确的图形验证码"),
     needGoogleAuth(40102, "需要Google验证"),
     googleAuthFail(40121, "Google验证码错误"),

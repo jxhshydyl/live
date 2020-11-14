@@ -16,6 +16,7 @@ import com.ex.user.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * 服务接口实现
@@ -34,6 +35,7 @@ public class UserAuthServiceImpl extends ServiceImpl<UserAuthMapper, UserAuth> i
     private UserAuthMapper userAuthMapper;
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public ResultVO submitAuth(UserAuthDTO userAuthDTO) {
         User user = userService.getById(userAuthDTO.getUserId());
         if (user.getRealAuth().equals(EnumUserAuthStatus.PASS.getCode())) {
@@ -55,7 +57,7 @@ public class UserAuthServiceImpl extends ServiceImpl<UserAuthMapper, UserAuth> i
         User temp = new User();
         temp.setId(user.getId());
         temp.setRealAuth(EnumUserAuthStatus.AUDITING.getCode());
-        userService.update();
+        userService.updateById(temp);
         userAuthMapper.insert(userAuth);
         return Result.success();
     }

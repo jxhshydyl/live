@@ -2,6 +2,7 @@ package com.ex.user.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.ex.model.constant.Constants;
 import com.ex.model.constant.RedisKeyConstant;
 import com.ex.model.constant.RedisTimeConstant;
 import com.ex.model.entity.message.Message;
@@ -14,7 +15,10 @@ import com.ex.model.vo.ResultVO;
 import com.ex.user.mapper.UserMapper;
 import com.ex.user.model.dto.MessageDTO;
 import com.ex.user.model.dto.UserDTO;
+import com.ex.user.model.dto.UserLoginDTO;
+import com.ex.user.model.vo.SessionUser;
 import com.ex.user.service.UserService;
+import com.ex.user.util.JWTUtils;
 import com.ex.user.util.ShareCodeUtil;
 import com.ex.util.encrypt.EncryptUtil;
 import com.yibu.dex.rpc.message.MessageFeign;
@@ -25,6 +29,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -121,5 +126,46 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         user.setLoginPwd(password);
         userMapper.updateById(user);
         return Result.success();
+    }
+
+    @Override
+    public ResultVO loginByPassWord(UserLoginDTO userLoginDTO) {
+        String userName = userLoginDTO.getUserName();
+        Long count = (Long) redisTemplate.opsForValue().get(RedisKeyConstant.LOGIN_PASSWORD_ERROR + userName);
+        if (count != null && count >= 5) {
+            return Result.error(ResultEnum.USER_PASSWORD_INPUT_ERROR);
+        }
+        User user = userMapper.selectOne(new LambdaQueryWrapper<User>()
+                .eq(User::getUserName, userName));
+        if (user == null) {
+            return Result.error(ResultEnum.USER_NOT);
+        }
+        Long userId = user.getId();
+        String loginPwd = user.getLoginPwd();
+        String password = EncryptUtil.SHA256(EncryptUtil.MD5(String.valueOf(userId)) + EncryptUtil.SHA(userLoginDTO.getPassword()));
+        //限制密码错误次数
+        if (!password.equals(loginPwd)) {
+            if (redisTemplate.hasKey(RedisKeyConstant.LOGIN_PASSWORD_ERROR + userName)) {
+                redisTemplate.opsForValue().increment(RedisKeyConstant.LOGIN_PASSWORD_ERROR + userName);
+            } else {
+                redisTemplate.opsForValue().set(RedisKeyConstant.LOGIN_PASSWORD_ERROR + userName, 1, RedisTimeConstant.LOGIN_PASSWORD_ERROR_LOCK, TimeUnit.HOURS);
+            }
+        }
+        redisTemplate.delete(RedisKeyConstant.LOGIN_PASSWORD_ERROR + userName);
+        String jwtToken = JWTUtils.createJwtToken(userId, user.getUserName());
+        SessionUser sessionUser = new SessionUser();
+        sessionUser.setUserId(userId);
+        sessionUser.setUserName(userName);
+        sessionUser.setToken(jwtToken);
+        sessionUser.setLoginTime(LocalDateTime.now());
+        redisTemplate.opsForValue().set(RedisKeyConstant.SSO_TOKEN + userId, jwtToken, Constants.JWT_LOGIN_TIME, TimeUnit.MILLISECONDS);
+        redisTemplate.opsForValue().set(RedisKeyConstant.SSO_SESSION + jwtToken, sessionUser, Constants.JWT_LOGIN_TIME, TimeUnit.MILLISECONDS);
+        return Result.success(sessionUser);
+    }
+
+    @Override
+    public ResultVO loginByCode(UserLoginDTO userLoginDTO) {
+
+        return null;
     }
 }

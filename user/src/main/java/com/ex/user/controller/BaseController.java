@@ -1,7 +1,9 @@
 package com.ex.user.controller;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
+import com.ex.model.constant.RedisKeyConstant;
+import com.ex.model.enums.ResultEnum;
+import com.ex.model.exceptions.BusinessException;
+import com.ex.user.model.vo.SessionUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
@@ -21,7 +23,10 @@ public class BaseController {
 
     protected Long getUid() {
         String headerStr = request.getHeader(X_CLIENT_TOKEN_USER);
-        JSONObject tokenUser = JSON.parseObject(headerStr);
-        return tokenUser.getLongValue("uid");
+        SessionUser session = (SessionUser) redisTemplate.opsForValue().get(RedisKeyConstant.SSO_SESSION + headerStr);
+        if (session == null) {
+            throw new BusinessException(ResultEnum.USER_NOT_LOGIN);
+        }
+        return session.getUserId();
     }
 }

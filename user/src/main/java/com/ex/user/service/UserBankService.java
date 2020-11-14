@@ -3,6 +3,8 @@ package com.ex.user.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.ex.model.entity.user.UserBank;
+import com.ex.model.vo.ResultVO;
+import com.ex.user.model.dto.UserBankBindDTO;
 
 /**
  * 服务接口
@@ -11,5 +13,7 @@ import com.ex.model.entity.user.UserBank;
  * @description 由 Mybatisplus Code Generator 创建
  */
 public interface UserBankService extends IService<UserBank> {
+
+    ResultVO bingBank(UserBankBindDTO userBankBindDTO);
 
 }
