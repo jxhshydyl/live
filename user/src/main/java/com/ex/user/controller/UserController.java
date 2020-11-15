@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.*;
  */
 @Slf4j
 @RestController
-@RequestMapping("user/api/{device}/{version}")
+@RequestMapping("/user/api/{device}/{version}")
 public class UserController extends BaseController {
 
     @Autowired
@@ -51,8 +51,7 @@ public class UserController extends BaseController {
 
     @GetMapping
     public ResultVO getUser() {
-        //todo 从 head 中获取userId
-        Long userId = null;
+        Long userId = getUid();
         User user = userService.getById(userId);
         UserVO userVO = new UserVO();
         BeanUtils.copyProperties(user, userVO);

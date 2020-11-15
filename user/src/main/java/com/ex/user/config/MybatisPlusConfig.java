@@ -14,7 +14,7 @@ import java.util.List;
  * @created 2020-06-09 18:10
  */
 @Configuration
-@MapperScan("com.yibu.dex.ore.mapper")
+@MapperScan("com.yibu.ex.ore.mapper")
 public class MybatisPlusConfig {
 
     /**

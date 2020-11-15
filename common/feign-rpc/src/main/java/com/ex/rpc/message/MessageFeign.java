@@ -1,4 +1,4 @@
-package com.yibu.dex.rpc.message;
+package com.ex.rpc.message;
 
 import com.ex.model.entity.message.Message;
 import com.ex.model.vo.ResultVO;

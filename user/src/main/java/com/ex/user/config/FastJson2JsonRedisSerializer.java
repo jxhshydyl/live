@@ -15,8 +15,8 @@ public class FastJson2JsonRedisSerializer<T> implements RedisSerializer<T> {
     private Class<T> clazz;
 
     static {
-        ParserConfig.getGlobalInstance().addAccept("com.yibu.dex.model.asset.AssetChangeVO");
-        ParserConfig.getGlobalInstance().addAccept("com.yibu.dex.model.asset.AssetVO");
+        ParserConfig.getGlobalInstance().addAccept("com.yibu.ex.model.asset.AssetChangeVO");
+        ParserConfig.getGlobalInstance().addAccept("com.yibu.ex.model.asset.AssetVO");
     }
 
     public FastJson2JsonRedisSerializer(Class<T> clazz) {

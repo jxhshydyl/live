@@ -4,20 +4,27 @@ import java.util.HashMap;
 import java.util.Map;
 
 public enum ResultEnum {
-    /**base*/
+    /**
+     * base
+     */
     FAIL(40100, "操作失败"),
-
-    /**user*/
-    USER_NOT(10000,"用户不存在"),
-    USER_NAME_EXISTS(10001,"用户名已存在"),
-    USER_AUTH_PASS(10002,"用户已经实名认证"),
-    USER_CART_NUMBER_USED(10003,"证件号已被认证"),
-    MESSAGE_TYPE_ERROR(10004,"短信验证码类型错误"),
-    MOBILE_USED(10005,"手机号已被使用"),
-    USER_SUB_CODE_FAIL(10006,"生成订阅码失败"),
-    USER_NOT_SUB_CODE(10007,"用户未生成该订阅码"),
-    USER_PASSWORD_INPUT_ERROR(10008,"用户密码输入错误次数过多"),
-    USER_NOT_LOGIN(10009,"用户未登录"),
+    PARAM_ERROR(40101, "参数错误"),
+    /**
+     * user
+     */
+    USER_NOT(10000, "用户不存在"),
+    USER_NAME_EXISTS(10001, "用户名已存在"),
+    USER_AUTH_PASS(10002, "用户已经实名认证"),
+    USER_CART_NUMBER_USED(10003, "证件号已被认证"),
+    MESSAGE_TYPE_ERROR(10004, "短信验证码类型错误"),
+    MOBILE_USED(10005, "手机号已被使用"),
+    USER_SUB_CODE_FAIL(10006, "生成订阅码失败"),
+    USER_NOT_SUB_CODE(10007, "用户未生成该订阅码"),
+    USER_PASSWORD_INPUT_ERROR(10008, "用户密码输入错误次数过多"),
+    USER_NOT_LOGIN(10009, "用户未登录"),
+    MESSAGE_FREQUENT(10010, "短信发送过于频繁"),
+    MESSAGE_SEND_FAIL(10011, "短信发送失败"),
+    MESSAGE_ERROR(10011, "短信验证码错误"),
 
     needImgCode(40101, "请输入正确的图形验证码"),
     needGoogleAuth(40102, "需要Google验证"),

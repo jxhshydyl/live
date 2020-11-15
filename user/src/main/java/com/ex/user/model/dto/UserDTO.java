@@ -47,4 +47,6 @@ public class UserDTO {
     private String countryCode;
 
     private String recommendCode;
+
+    private String code;
 }

@@ -127,6 +127,10 @@ public class User {
      */
     private String lastLoginIp;
     /**
+     * 上一次签到时间
+     */
+    private Date lastSignTime;
+    /**
      * 是否禁止提现 1:禁止提现  0:可以提现
      */
     private Integer withdraw;

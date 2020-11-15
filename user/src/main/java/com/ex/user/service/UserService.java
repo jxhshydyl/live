@@ -2,7 +2,6 @@ package com.ex.user.service;
 
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.ex.model.entity.message.Message;
 import com.ex.model.entity.user.User;
 import com.ex.model.vo.ResultVO;
 import com.ex.user.model.dto.MessageDTO;

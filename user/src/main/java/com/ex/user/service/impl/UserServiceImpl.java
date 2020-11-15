@@ -19,9 +19,10 @@ import com.ex.user.model.dto.UserLoginDTO;
 import com.ex.user.model.vo.SessionUser;
 import com.ex.user.service.UserService;
 import com.ex.user.util.JWTUtils;
+import com.ex.user.util.MessageUtil;
 import com.ex.user.util.ShareCodeUtil;
 import com.ex.util.encrypt.EncryptUtil;
-import com.yibu.dex.rpc.message.MessageFeign;
+import com.ex.rpc.message.MessageFeign;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +31,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -51,6 +53,9 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     @Autowired
     private RedisTemplate redisTemplate;
 
+    @Autowired
+    private MessageUtil messageUtil;
+
     @Override
     public ResultVO sendMessage(boolean isLogin, MessageDTO messageDTO) {
         //登录发送短信
@@ -58,7 +63,8 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         String userName = null;
         String receiveAddress = messageDTO.getReceiveAddress();
         String countryCode = messageDTO.getCountryCode();
-        EnumMessageBusinessType msgType = EnumMessageBusinessType.getMsgType(messageDTO.getBusinessType());
+        Integer businessType = messageDTO.getBusinessType();
+        EnumMessageBusinessType msgType = EnumMessageBusinessType.getMsgType(businessType);
         if (msgType == null) {
             return Result.error(ResultEnum.MESSAGE_TYPE_ERROR);
         }
@@ -69,30 +75,36 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
             receiveAddress = user.getMobile();
             countryCode = user.getCountryCode();
         } else {
-            //注册验证码不需要判断是否有该用户
-            if (msgType.getId() != EnumMessageBusinessType.REGISTER.getId()) {
+            //注册验证码和更改手机新手机验证码 需要判断是否有该用户
+            if (businessType == EnumMessageBusinessType.REGISTER.getId()
+                    || businessType == EnumMessageBusinessType.UPDATE_MOBILE_NEW_MOBILE.getId()) {
                 User user = userMapper.selectOne(new LambdaQueryWrapper<User>()
                         .eq(User::getMobile, receiveAddress)
                         .or()
                         .eq(User::getEmail, receiveAddress));
-                if (user == null) {
-                    return Result.error(ResultEnum.USER_NOT);
+                if (user != null) {
+                    return Result.error(ResultEnum.MOBILE_USED);
                 }
             }
         }
-        String code = "";
+        String code = String.valueOf(new Random().nextInt(899999) + 100000);
         Message message = new Message();
         message.setUserId(userId);
         message.setUserName(userName);
-        message.setContext("");
+        //后面改成短信模板
+        message.setContext(msgType.getName() + ":" + code);
         message.setReceiveAddress(receiveAddress);
         message.setCountryCode(countryCode);
         message.setType(EnumMessageType.手机短信.getCode());
-        ResultVO resultVO = messageFeign.sendMessage(message);
-        if (resultVO.isSuccess()) {
-            redisTemplate.opsForValue().set(RedisKeyConstant.MESSAGE, code, RedisTimeConstant.MESSAGE_EXPIRE, TimeUnit.MINUTES);
+        try {
+            ResultVO resultVO = messageUtil.sendMessage(msgType, receiveAddress, code);
+            if (resultVO.isSuccess()) {
+                return messageFeign.sendMessage(message);
+            }
+        } catch (Exception e) {
+            log.error("发送短信异常：", e);
         }
-        return messageFeign.sendMessage(message);
+        return Result.error(ResultEnum.MESSAGE_SEND_FAIL);
     }
 
     @Override
@@ -112,20 +124,25 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
             recommendId = recommendUser.getId();
         }
         // TODO: 2020/11/14   校验短信验证码
-
-        user = new User();
-        user.setUserName(userDTO.getUserName());
-        user.setNickName(userDTO.getNickName());
-        user.setHeadPortrait(userDTO.getHeadPortrait());
-        user.setLocation(userDTO.getLocation());
-        user.setSex(userDTO.getSex());
-        user.setRecommendId(recommendId);
-        userMapper.insert(user);
-        user.setRecommendCode(ShareCodeUtil.idToCode(user.getId()));
-        String password = EncryptUtil.SHA256(EncryptUtil.MD5(String.valueOf(user.getId())) + EncryptUtil.SHA(user.getLoginPwd()));
-        user.setLoginPwd(password);
-        userMapper.updateById(user);
-        return Result.success();
+        String code = userDTO.getCode();
+        String mobile = userDTO.getMobile();
+        ResultVO resultVO = messageUtil.checkMessage(EnumMessageBusinessType.REGISTER, mobile, code);
+        if (resultVO.isSuccess()) {
+            user = new User();
+            user.setUserName(userDTO.getUserName());
+            user.setNickName(userDTO.getNickName());
+            user.setHeadPortrait(userDTO.getHeadPortrait());
+            user.setLocation(userDTO.getLocation());
+            user.setSex(userDTO.getSex());
+            user.setRecommendId(recommendId);
+            userMapper.insert(user);
+            user.setRecommendCode(ShareCodeUtil.idToCode(user.getId()));
+            String password = EncryptUtil.SHA256(EncryptUtil.MD5(String.valueOf(user.getId())) + EncryptUtil.SHA(user.getLoginPwd()));
+            user.setLoginPwd(password);
+            userMapper.updateById(user);
+            return Result.success();
+        }
+        return resultVO;
     }
 
     @Override
@@ -152,6 +169,27 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
             }
         }
         redisTemplate.delete(RedisKeyConstant.LOGIN_PASSWORD_ERROR + userName);
+        return login(user);
+    }
+
+    @Override
+    public ResultVO loginByCode(UserLoginDTO userLoginDTO) {
+        String userName = userLoginDTO.getUserName();
+        User user = userMapper.selectOne(new LambdaQueryWrapper<User>()
+                .eq(User::getUserName, userName));
+        if (user == null) {
+            return Result.error(ResultEnum.USER_NOT);
+        }
+        ResultVO resultVO = messageUtil.checkMessage(EnumMessageBusinessType.REGISTER, userName, userLoginDTO.getPassword());
+        if (resultVO.isSuccess()) {
+            return login(user);
+        }
+        return resultVO;
+    }
+
+    private ResultVO login(User user) {
+        Long userId = user.getId();
+        String userName = user.getUserName();
         String jwtToken = JWTUtils.createJwtToken(userId, user.getUserName());
         SessionUser sessionUser = new SessionUser();
         sessionUser.setUserId(userId);
@@ -161,11 +199,5 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         redisTemplate.opsForValue().set(RedisKeyConstant.SSO_TOKEN + userId, jwtToken, Constants.JWT_LOGIN_TIME, TimeUnit.MILLISECONDS);
         redisTemplate.opsForValue().set(RedisKeyConstant.SSO_SESSION + jwtToken, sessionUser, Constants.JWT_LOGIN_TIME, TimeUnit.MILLISECONDS);
         return Result.success(sessionUser);
-    }
-
-    @Override
-    public ResultVO loginByCode(UserLoginDTO userLoginDTO) {
-
-        return null;
     }
 }

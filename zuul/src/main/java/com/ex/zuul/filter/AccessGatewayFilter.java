@@ -13,6 +13,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.buffer.DataBuffer;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -26,7 +27,7 @@ import javax.annotation.Resource;
 /**
  * 请求url权限校验
  */
-//@Configuration
+@Configuration
 public class AccessGatewayFilter implements GlobalFilter {
 
     private Logger log = LoggerFactory.getLogger(this.getClass());

@@ -6,6 +6,14 @@ package com.ex.model.constant;
  */
 public class RedisKeyConstant {
     /**
+     * redis 中存储发送过短信的次数
+     */
+    public static final String SEND_MESSAGE_COUNT = "SEND_MESSAGE_COUNT:";
+    /**
+     * redis 中存储发送过短信的key
+     */
+    public static final String SEND_MESSAGE = "SEND_MESSAGE:";
+    /**
      * redis 中存储短信的key
      */
     public static final String MESSAGE = "MESSAGE:";

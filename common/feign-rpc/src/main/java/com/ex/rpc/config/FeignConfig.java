@@ -1,4 +1,4 @@
-package com.yibu.dex.rpc.config;
+package com.ex.rpc.config;
 
 import com.alibaba.fastjson.parser.ParserConfig;
 import com.alibaba.fastjson.serializer.SerializerFeature;

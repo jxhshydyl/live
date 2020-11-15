@@ -33,12 +33,13 @@ public class TimeUtil {
     }
 
     /**
-     *返回一个日期，只用来做显示
+     * 返回一个日期，只用来做显示
+     *
      * @param nowDate
      * @param pattern "yyyy-MM-dd HH:mm"
      * @return
      */
-    public static Date getStringToDate(String nowDate,String pattern) {
+    public static Date getStringToDate(String nowDate, String pattern) {
         SimpleDateFormat sdf = new SimpleDateFormat(pattern);
         try {
             return sdf.parse(nowDate);
@@ -629,6 +630,7 @@ public class TimeUtil {
 
     /**
      * 格式化输出距离今天多少天的日期
+     *
      * @param i 小于0 代表今天之前
      * @return
      */
@@ -641,6 +643,7 @@ public class TimeUtil {
 
     /**
      * 获取昨天的日期
+     *
      * @return
      */
     public static String getYesterdayYMD() {
@@ -649,6 +652,7 @@ public class TimeUtil {
 
     /**
      * 格式化输出距离今天多少天的日期
+     *
      * @param i 小于0 代表今天之前
      * @return
      */
@@ -661,6 +665,7 @@ public class TimeUtil {
 
     /**
      * 获取昨天的日期
+     *
      * @return
      */
     public static String getYesterdayYYYYMMdd() {
@@ -732,7 +737,7 @@ public class TimeUtil {
      * @param day
      * @return
      */
-    public static List<String> getDaysBetween(int day,String format) {
+    public static List<String> getDaysBetween(int day, String format) {
         List<String> days = new ArrayList<>();
         long startTime = LocalDateTime.now().plusDays(-day).toInstant(ZoneOffset.of("+8")).toEpochMilli();
         long endTime = LocalDateTime.now().plusDays(-1).toInstant(ZoneOffset.of("+8")).toEpochMilli();
@@ -748,10 +753,9 @@ public class TimeUtil {
     }
 
 
-
-
     /**
      * 格式化输出距离当前时间多少小时的日期
+     *
      * @param i 小于0 代表今天之前
      * @return
      */
@@ -764,6 +768,7 @@ public class TimeUtil {
 
     /**
      * 获取前一小时的日期
+     *
      * @return
      */
     public static String getHourYYYYMMddHH() {
@@ -771,12 +776,11 @@ public class TimeUtil {
     }
 
     /**
-     *
      * @param timestamp
-     * @param ymd "yyyyMMddHH"
+     * @param ymd       "yyyyMMddHH"
      * @return
      */
-    public static String getTimestampToString(Timestamp timestamp,String ymd){
+    public static String getTimestampToString(Timestamp timestamp, String ymd) {
         String tsStr = null;
         DateFormat sdf = new SimpleDateFormat(ymd);
         try {

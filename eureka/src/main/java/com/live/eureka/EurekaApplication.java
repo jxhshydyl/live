@@ -1,4 +1,4 @@
-package com.exchange.eureka;
+package com.live.eureka;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

@@ -14,8 +14,11 @@ public class MySpringMVCConfig implements WebMvcConfigurer {
 
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(sessionInterceptor)
-                .addPathPatterns("/**")
-                .excludePathPatterns("/login");
+                .excludePathPatterns("/user/api/*/*/login")
+                .excludePathPatterns("/user/api/*/*/login/code")
+                .excludePathPatterns("/user/api/*/*/send/message")
+                .excludePathPatterns("/user/api/*/*/register")
+                .addPathPatterns("/**");
     }
 
 
