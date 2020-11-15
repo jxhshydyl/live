@@ -1,14 +1,12 @@
 package com.ex.model.entity.user;
 
-import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.baomidou.mybatisplus.extension.activerecord.Model;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 
-import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -21,13 +19,11 @@ import java.util.Date;
 @NoArgsConstructor
 @Accessors(chain = true)
 @TableName("user_info")
-public class UserInfo extends Model<UserInfo> implements Serializable {
-    private static final long serialVersionUID = 1L;
-
+public class UserInfo {
     /**
      * id
      */
-    @TableId
+    @TableId(type = IdType.AUTO)
     private Long id;
     /**
      * userId
@@ -37,6 +33,22 @@ public class UserInfo extends Model<UserInfo> implements Serializable {
      * 个人简介
      */
     private String introduce;
+    /**
+     * 昵称
+     */
+    private String nickName;
+    /**
+     * 头像路径
+     */
+    private Integer headPortrait;
+    /**
+     * 性别  1：男  0：女
+     */
+    private Integer sex;
+    /**
+     * 所在地
+     */
+    private String location;
     /**
      * 标签
      */
@@ -70,13 +82,20 @@ public class UserInfo extends Model<UserInfo> implements Serializable {
      */
     private Integer experienceValue;
     /**
+     * 上一次签到时间
+     */
+    private Date lastSignTime;
+    /**
+     * 连续签到次数
+     */
+    private Integer contDays;
+    /**
      * createTime
      */
     private Date createTime;
     /**
      * updateTime
      */
-    @TableField(update = "now()")
     private Date updateTime;
 
 }

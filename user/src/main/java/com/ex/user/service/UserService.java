@@ -23,4 +23,6 @@ public interface UserService extends IService<User> {
     ResultVO loginByPassWord(UserLoginDTO userLoginDTO);
 
     ResultVO loginByCode(UserLoginDTO userLoginDTO);
+
+    Integer updateUserById(User user);
 }

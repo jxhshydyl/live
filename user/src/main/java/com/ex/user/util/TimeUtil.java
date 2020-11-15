@@ -572,6 +572,16 @@ public class TimeUtil {
     }
 
     /**
+     * 是否是今天
+     *
+     * @param date
+     * @return
+     */
+    public static boolean isYesterday(final Date date) {
+        return isTheDay(date, new Date(System.currentTimeMillis() - 1000 * 60 * 60 * 24));
+    }
+
+    /**
      * 是否是指定日期
      *
      * @param date

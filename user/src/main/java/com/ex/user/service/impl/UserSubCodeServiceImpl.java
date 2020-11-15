@@ -3,7 +3,6 @@ package com.ex.user.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.ex.model.entity.user.User;
 import com.ex.model.entity.user.UserSubCode;
 import com.ex.model.enums.EnumEither;
 import com.ex.model.enums.ResultEnum;
@@ -19,7 +18,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 /**

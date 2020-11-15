@@ -20,7 +20,6 @@ import java.util.Date;
 @Accessors(chain = true)
 @TableName("user")
 public class User {
-
     /**
      * 用户Id
      */
@@ -46,22 +45,6 @@ public class User {
      * 邮箱
      */
     private String email;
-    /**
-     * 昵称
-     */
-    private String nickName;
-    /**
-     * 头像路径
-     */
-    private Integer headPortrait;
-    /**
-     * 性别  1：男  0：女
-     */
-    private Integer sex;
-    /**
-     * 所在地
-     */
-    private String location;
     /**
      * 国家代码
      */
@@ -127,12 +110,7 @@ public class User {
      */
     private String lastLoginIp;
     /**
-     * 上一次签到时间
-     */
-    private Date lastSignTime;
-    /**
      * 是否禁止提现 1:禁止提现  0:可以提现
      */
     private Integer withdraw;
-
 }

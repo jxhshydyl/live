@@ -130,10 +130,6 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         if (resultVO.isSuccess()) {
             user = new User();
             user.setUserName(userDTO.getUserName());
-            user.setNickName(userDTO.getNickName());
-            user.setHeadPortrait(userDTO.getHeadPortrait());
-            user.setLocation(userDTO.getLocation());
-            user.setSex(userDTO.getSex());
             user.setRecommendId(recommendId);
             userMapper.insert(user);
             user.setRecommendCode(ShareCodeUtil.idToCode(user.getId()));
@@ -199,5 +195,10 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         redisTemplate.opsForValue().set(RedisKeyConstant.SSO_TOKEN + userId, jwtToken, Constants.JWT_LOGIN_TIME, TimeUnit.MILLISECONDS);
         redisTemplate.opsForValue().set(RedisKeyConstant.SSO_SESSION + jwtToken, sessionUser, Constants.JWT_LOGIN_TIME, TimeUnit.MILLISECONDS);
         return Result.success(sessionUser);
+    }
+
+    @Override
+    public Integer updateUserById(User user) {
+        return userMapper.updateUserById(user);
     }
 }
