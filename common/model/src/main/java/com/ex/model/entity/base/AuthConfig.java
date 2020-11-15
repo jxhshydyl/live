@@ -1,4 +1,4 @@
-package com.ex.model.entity.user;
+package com.ex.model.entity.base;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
@@ -11,38 +11,42 @@ import lombok.experimental.Accessors;
 import java.util.Date;
 
 /**
- * (user_member)实体类
+ * 等级权限配置表(auth_config)实体类
  *
  * @author
  * @description 由 Mybatisplus Code Generator 创建
- * @since 2020-11-15 19:48:00
+ * @since 2020-11-15 19:57:41
  */
 @Data
 @NoArgsConstructor
 @Accessors(chain = true)
-@TableName("user_member")
-public class UserMember {
+@TableName("auth_config")
+public class AuthConfig {
     /**
      * id
      */
     @TableId(type = IdType.AUTO)
-    private Long id;
+    private Integer id;
     /**
-     * userId
+     * 权限key
      */
-    private Long userId;
+    private String authKey;
     /**
-     * 会员类型 0:不是会员  1：普通会员
+     * 权限值
      */
-    private String type;
+    private String authValue;
     /**
-     * 有效时间
+     * 权限图片
      */
-    private Date validityTime;
+    private String img;
     /**
-     * 是否续费  1：续费  0：非续费
+     * 最低等级
      */
-    private Integer renew;
+    private Integer level;
+    /**
+     * 1：有效 0：无效
+     */
+    private Integer status;
     /**
      * createTime
      */
@@ -51,5 +55,9 @@ public class UserMember {
      * updateTime
      */
     private Date updateTime;
+    /**
+     * 更新用户
+     */
+    private Integer updateUserId;
 
 }

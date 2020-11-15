@@ -1,4 +1,4 @@
-package com.ex.model.entity.user;
+package com.ex.model.entity.base;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
@@ -11,38 +11,46 @@ import lombok.experimental.Accessors;
 import java.util.Date;
 
 /**
- * (user_member)实体类
+ * 会员特权配置(member_privilege_config)实体类
  *
  * @author
  * @description 由 Mybatisplus Code Generator 创建
- * @since 2020-11-15 19:48:00
+ * @since 2020-11-15 19:57:41
  */
 @Data
 @NoArgsConstructor
 @Accessors(chain = true)
-@TableName("user_member")
-public class UserMember {
+@TableName("member_privilege_config")
+public class MemberPrivilegeConfig {
     /**
      * id
      */
     @TableId(type = IdType.AUTO)
-    private Long id;
+    private Integer id;
     /**
-     * userId
+     * 会员权限名称
      */
-    private Long userId;
+    private String name;
     /**
-     * 会员类型 0:不是会员  1：普通会员
+     * 会员权限小图标
      */
-    private String type;
+    private String img;
     /**
-     * 有效时间
+     * 会员权限展示图
      */
-    private Date validityTime;
+    private String banner;
     /**
-     * 是否续费  1：续费  0：非续费
+     * 描述
      */
-    private Integer renew;
+    private String describe;
+    /**
+     * 说明
+     */
+    private String introduce;
+    /**
+     * 状态  1：有效  0：无效
+     */
+    private Integer status;
     /**
      * createTime
      */
@@ -50,6 +58,11 @@ public class UserMember {
     /**
      * updateTime
      */
+    @TableField(update = "now()")
     private Date updateTime;
+    /**
+     * 更新用户
+     */
+    private Integer updateUserId;
 
 }

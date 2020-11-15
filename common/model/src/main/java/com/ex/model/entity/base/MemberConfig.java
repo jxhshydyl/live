@@ -1,4 +1,4 @@
-package com.ex.model.entity.user;
+package com.ex.model.entity.base;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
@@ -8,41 +8,38 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 /**
- * (user_member)实体类
+ * 会员类型配置(member_config)实体类
  *
  * @author
  * @description 由 Mybatisplus Code Generator 创建
- * @since 2020-11-15 19:48:00
+ * @since 2020-11-15 19:57:41
  */
 @Data
 @NoArgsConstructor
 @Accessors(chain = true)
-@TableName("user_member")
-public class UserMember {
+@TableName("member_config")
+public class MemberConfig {
     /**
      * id
      */
     @TableId(type = IdType.AUTO)
-    private Long id;
+    private Integer id;
     /**
-     * userId
+     * 会员类型  1：月卡  2：季卡  3：半年   4：一年
      */
-    private Long userId;
+    private Integer type;
     /**
-     * 会员类型 0:不是会员  1：普通会员
+     * 金额
      */
-    private String type;
+    private BigDecimal money;
     /**
-     * 有效时间
+     * 1:有效  0：无效
      */
-    private Date validityTime;
-    /**
-     * 是否续费  1：续费  0：非续费
-     */
-    private Integer renew;
+    private Integer status;
     /**
      * createTime
      */
@@ -50,6 +47,11 @@ public class UserMember {
     /**
      * updateTime
      */
+    @TableField(update = "now()")
     private Date updateTime;
+    /**
+     * 更新用户
+     */
+    private Integer updateUserId;
 
 }
