@@ -15,6 +15,7 @@ import com.ex.model.vo.ResultVO;
 import com.ex.user.mapper.UserMapper;
 import com.ex.user.model.dto.MessageDTO;
 import com.ex.user.model.dto.UserDTO;
+import com.ex.user.model.dto.UserLoginCodeDTO;
 import com.ex.user.model.dto.UserLoginDTO;
 import com.ex.user.model.vo.SessionUser;
 import com.ex.user.service.UserService;
@@ -169,14 +170,14 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     }
 
     @Override
-    public ResultVO loginByCode(UserLoginDTO userLoginDTO) {
-        String userName = userLoginDTO.getUserName();
+    public ResultVO loginByCode(UserLoginCodeDTO userLoginCodeDTO) {
+        String userName = userLoginCodeDTO.getUserName();
         User user = userMapper.selectOne(new LambdaQueryWrapper<User>()
                 .eq(User::getUserName, userName));
         if (user == null) {
             return Result.error(ResultEnum.USER_NOT);
         }
-        ResultVO resultVO = messageUtil.checkMessage(EnumMessageBusinessType.REGISTER, userName, userLoginDTO.getPassword());
+        ResultVO resultVO = messageUtil.checkMessage(EnumMessageBusinessType.REGISTER, userName, userLoginCodeDTO.getCode());
         if (resultVO.isSuccess()) {
             return login(user);
         }

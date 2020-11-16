@@ -6,6 +6,7 @@ import com.ex.model.entity.user.User;
 import com.ex.model.vo.ResultVO;
 import com.ex.user.model.dto.MessageDTO;
 import com.ex.user.model.dto.UserDTO;
+import com.ex.user.model.dto.UserLoginCodeDTO;
 import com.ex.user.model.dto.UserLoginDTO;
 
 /**
@@ -22,7 +23,7 @@ public interface UserService extends IService<User> {
 
     ResultVO loginByPassWord(UserLoginDTO userLoginDTO);
 
-    ResultVO loginByCode(UserLoginDTO userLoginDTO);
+    ResultVO loginByCode(UserLoginCodeDTO userLoginCodeDTO);
 
     Integer updateUserById(User user);
 }

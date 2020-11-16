@@ -9,6 +9,7 @@ import com.ex.model.vo.ResultVO;
 import com.ex.user.model.vo.LevelConfigVO;
 import com.ex.user.service.AuthConfigService;
 import com.ex.user.service.LevelConfigService;
+import io.swagger.annotations.Api;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
