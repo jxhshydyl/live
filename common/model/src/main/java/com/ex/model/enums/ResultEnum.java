@@ -26,6 +26,9 @@ public enum ResultEnum {
     MESSAGE_SEND_FAIL(10011, "短信发送失败"),
     MESSAGE_ERROR(10011, "短信验证码错误"),
 
+    /**file*/
+    FILE_UPLOAD_ERROR(20000,"文件上传错误"),
+
     needImgCode(40101, "请输入正确的图形验证码"),
     needGoogleAuth(40102, "需要Google验证"),
     googleAuthFail(40121, "Google验证码错误"),
