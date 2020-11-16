@@ -1,33 +1,31 @@
 package com.ex.model.entity.user;
 
-import java.io.Serializable;
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.baomidou.mybatisplus.extension.activerecord.Model;
-import java.util.Date;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 
+import java.util.Date;
+
 /**
  * 用户关注列表(user_attention)实体类
  *
- * @since 2020-11-11 18:24:22
  * @description 由 Mybatisplus Code Generator 创建
+ * @since 2020-11-11 18:24:22
  */
 @Data
 @NoArgsConstructor
 @Accessors(chain = true)
 @TableName("user_attention")
-public class UserAttention extends Model<UserAttention> implements Serializable {
-    private static final long serialVersionUID = 1L;
-
+public class UserAttention {
     /**
      * id
      */
-    @TableId
-	private Integer id;
+    @TableId(type = IdType.AUTO)
+    private Integer id;
     /**
      * 用户id
      */
@@ -39,7 +37,7 @@ public class UserAttention extends Model<UserAttention> implements Serializable 
     /**
      * 0：取消关注  1：关注
      */
-    private String status;
+    private Integer status;
     /**
      * createTime
      */
@@ -47,7 +45,6 @@ public class UserAttention extends Model<UserAttention> implements Serializable 
     /**
      * updateTime
      */
-    @TableField(update = "now()")
-	private Date updateTime;
+    private Date updateTime;
 
 }
