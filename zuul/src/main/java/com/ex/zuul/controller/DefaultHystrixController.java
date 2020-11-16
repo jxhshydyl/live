@@ -1,8 +1,8 @@
 package com.ex.zuul.controller;
 
-import com.meizan.ancon.common.enumeration.ResultEnum;
-import com.meizan.ancon.common.utils.Result;
-import com.meizan.ancon.common.vo.ResultVO;
+import com.ex.model.enums.ResultEnum;
+import com.ex.model.vo.Result;
+import com.ex.model.vo.ResultVO;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 

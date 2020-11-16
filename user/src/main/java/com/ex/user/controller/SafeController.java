@@ -10,6 +10,7 @@ import com.ex.user.model.dto.UpdateUserSafeDTO;
 import com.ex.user.service.UserAuthService;
 import com.ex.user.service.UserService;
 import com.ex.util.encrypt.EncryptUtil;
+import io.swagger.annotations.Api;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("user/api/{device}/{version}")
+@Api("测试")
 public class SafeController extends BaseController {
 
     @Autowired

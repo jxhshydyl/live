@@ -1,6 +1,6 @@
 package com.ex.zuul.service.impl;
 
-import com.meizan.ancon.common.vo.ResultVO;
+import com.ex.model.vo.ResultVO;
 import com.ex.zuul.provider.AuthProvider;
 import com.ex.zuul.service.AuthService;
 import io.jsonwebtoken.*;
@@ -60,7 +60,7 @@ public class AuthServiceImpl implements AuthService {
     @Override
     public boolean hasPermission(ResultVO authResult) {
         log.debug("签权结果:{}", authResult.getData());
-        return authResult.getStatus() == 200 && (boolean) authResult.getData();
+        return authResult.getCode() == 200 && (boolean) authResult.getData();
     }
 
     @Override

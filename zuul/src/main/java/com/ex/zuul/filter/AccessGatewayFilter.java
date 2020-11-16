@@ -1,12 +1,12 @@
 package com.ex.zuul.filter;
 
 import com.alibaba.fastjson.JSON;
+import com.ex.model.enums.ResultEnum;
+import com.ex.model.vo.Result;
+import com.ex.model.vo.ResultVO;
+import com.ex.zuul.service.AuthService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.meizan.ancon.common.enumeration.ResultEnum;
-import com.meizan.ancon.common.utils.Result;
-import com.meizan.ancon.common.vo.ResultVO;
-import com.ex.zuul.service.AuthService;
 import org.apache.commons.codec.binary.Base64;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

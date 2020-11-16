@@ -13,8 +13,8 @@ public class Result {
     public static ResultVO success(Object object) {
         ResultVO resultvo = new ResultVO();
         resultvo.setData(object);
-        resultvo.setStatus(200);
-        resultvo.setMessage("success");
+        resultvo.setCode(200);
+        resultvo.setMsg("success");
         return resultvo;
     }
 
@@ -25,8 +25,8 @@ public class Result {
     public static ResultVO success(Object object, int status) {
         ResultVO resultvo = new ResultVO();
         resultvo.setData(object);
-        resultvo.setStatus(status);
-        resultvo.setMessage("success");
+        resultvo.setCode(status);
+        resultvo.setMsg("success");
         return resultvo;
     }
 
@@ -38,8 +38,8 @@ public class Result {
     public static ResultVO success(Object object, int status, String message) {
         ResultVO resultvo = new ResultVO();
         resultvo.setData(object);
-        resultvo.setStatus(status);
-        resultvo.setMessage(message);
+        resultvo.setCode(status);
+        resultvo.setMsg(message);
         return resultvo;
     }
 
@@ -58,8 +58,8 @@ public class Result {
      */
     public static ResultVO error(int status, String message) {
         ResultVO resultvo = new ResultVO();
-        resultvo.setStatus(status);
-        resultvo.setMessage(message);
+        resultvo.setCode(status);
+        resultvo.setMsg(message);
         return resultvo;
     }
 
@@ -70,8 +70,8 @@ public class Result {
      */
     public static ResultVO error(ResultEnum resultEnum) {
         ResultVO resultVO = new ResultVO();
-        resultVO.setStatus(resultEnum.getCode());
-        resultVO.setMessage(resultEnum.getMsg());
+        resultVO.setCode(resultEnum.getCode());
+        resultVO.setMsg(resultEnum.getMsg());
         return resultVO;
     }
 
@@ -81,10 +81,10 @@ public class Result {
      */
     public static ResultVO error(int status) {
         ResultVO resultvo = new ResultVO();
-        resultvo.setStatus(status);
+        resultvo.setCode(status);
         String message = new String();
         message = statusToMessage(status);
-        resultvo.setMessage(message);
+        resultvo.setMsg(message);
         return resultvo;
     }
 

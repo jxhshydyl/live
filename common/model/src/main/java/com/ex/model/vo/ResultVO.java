@@ -9,12 +9,12 @@ public class ResultVO {
     /**
      * 提示码,给API调用者看的.其可根据提示码自己定义提示语.
      */
-    private Integer status;
+    private Integer code;
 
     /**
      * 提示信息,给用户看的.
      */
-    private String message;
+    private String msg;
 
 
     public ResultVO() {
@@ -26,20 +26,20 @@ public class ResultVO {
      */
     private Object data;
 
-    public Integer getStatus() {
-        return status;
+    public Integer getCode() {
+        return code;
     }
 
-    public void setStatus(Integer status) {
-        this.status = status;
+    public void setCode(Integer code) {
+        this.code = code;
     }
 
-    public String getMessage() {
-        return message;
+    public String getMsg() {
+        return msg;
     }
 
-    public void setMessage(String message) {
-        this.message = message;
+    public void setMsg(String msg) {
+        this.msg = msg;
     }
 
     public Object getData() {
@@ -58,7 +58,7 @@ public class ResultVO {
         this.timestamp = timestamp;
     }
 
-    public boolean isSuccess(){
-        return status == 200;
+    public boolean isSuccess() {
+        return code == 200;
     }
 }

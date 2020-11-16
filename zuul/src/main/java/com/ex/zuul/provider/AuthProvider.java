@@ -1,7 +1,7 @@
 package com.ex.zuul.provider;
 
-import com.meizan.ancon.common.utils.Result;
-import com.meizan.ancon.common.vo.ResultVO;
+import com.ex.model.vo.Result;
+import com.ex.model.vo.ResultVO;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;

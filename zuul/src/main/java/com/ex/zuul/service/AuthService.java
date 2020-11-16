@@ -1,6 +1,6 @@
 package com.ex.zuul.service;
 
-import com.meizan.ancon.common.vo.ResultVO;
+import com.ex.model.vo.ResultVO;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
 
