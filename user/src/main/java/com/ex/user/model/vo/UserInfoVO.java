@@ -20,7 +20,7 @@ public class UserInfoVO {
     /**
      * userId
      */
-    private Integer userId;
+    private Long userId;
     /**
      * 个人简介
      */

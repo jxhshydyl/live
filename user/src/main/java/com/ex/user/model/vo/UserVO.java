@@ -32,22 +32,6 @@ public class UserVO {
      */
     private String email;
     /**
-     * 昵称
-     */
-    private String nickName;
-    /**
-     * 头像路径
-     */
-    private Integer headPortrait;
-    /**
-     * 性别  1：男  0：女
-     */
-    private Integer sex;
-    /**
-     * 所在地
-     */
-    private String location;
-    /**
      * 安全密码强度
      */
     private Integer safePwdLevel;
@@ -79,14 +63,6 @@ public class UserVO {
      * 是否实名认证(0为未提交，1，审核中，2审核不通过，3审核通过)
      */
     private Integer realAuth;
-    /**
-     * vip等级
-     */
-    private Integer vipLevel;
-    /**
-     * 经验等级
-     */
-    private Integer experienceLevel;
     /**
      * 注册时间
      */

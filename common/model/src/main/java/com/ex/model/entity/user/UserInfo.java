@@ -28,7 +28,7 @@ public class UserInfo {
     /**
      * userId
      */
-    private Integer userId;
+    private Long userId;
     /**
      * 个人简介
      */

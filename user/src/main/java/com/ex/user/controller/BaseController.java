@@ -29,4 +29,13 @@ public class BaseController {
         }
         return session.getUserId();
     }
+
+    protected boolean isLogin() {
+        String headerStr = request.getHeader(X_CLIENT_TOKEN_USER);
+        SessionUser session = (SessionUser) redisTemplate.opsForValue().get(RedisKeyConstant.SSO_SESSION + headerStr);
+        if (session == null) {
+            return false;
+        }
+        return true;
+    }
 }
