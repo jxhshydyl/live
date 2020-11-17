@@ -2,7 +2,7 @@ package com.ex.model.enums;
 
 /**
  * @Classname EnumEither
- * @Description TODO
+ * @Description
  * @Date 2020/11/14 11:49
  */
 public enum EnumEither {

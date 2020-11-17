@@ -5,7 +5,7 @@ import com.ex.model.entity.message.Message;
 
 /**
  * @Classname MessageService
- * @Description TODO
+ * @Description
  * @Date 2020/11/11 18:52
  */
 public interface MessageService extends IService<Message> {

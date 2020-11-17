@@ -12,6 +12,7 @@ import com.ex.model.enums.message.EnumMessageBusinessType;
 import com.ex.model.enums.message.EnumMessageType;
 import com.ex.model.vo.Result;
 import com.ex.model.vo.ResultVO;
+import com.ex.rpc.message.MessageFeign;
 import com.ex.user.mapper.UserMapper;
 import com.ex.user.model.dto.MessageDTO;
 import com.ex.user.model.dto.UserDTO;
@@ -21,9 +22,7 @@ import com.ex.user.model.vo.SessionUser;
 import com.ex.user.service.UserService;
 import com.ex.user.util.JWTUtils;
 import com.ex.user.util.MessageUtil;
-import com.ex.user.util.ShareCodeUtil;
 import com.ex.util.encrypt.EncryptUtil;
-import com.ex.rpc.message.MessageFeign;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -124,7 +123,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
             }
             recommendId = recommendUser.getId();
         }
-        // TODO: 2020/11/14   校验短信验证码
+        // 2020/11/14   校验短信验证码
         String code = userDTO.getCode();
         String mobile = userDTO.getMobile();
         ResultVO resultVO = messageUtil.checkMessage(EnumMessageBusinessType.REGISTER, mobile, code);
@@ -133,7 +132,6 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
             user.setUserName(userDTO.getUserName());
             user.setRecommendId(recommendId);
             userMapper.insert(user);
-            user.setRecommendCode(ShareCodeUtil.idToCode(user.getId()));
             String password = EncryptUtil.SHA256(EncryptUtil.MD5(String.valueOf(user.getId())) + EncryptUtil.SHA(user.getLoginPwd()));
             user.setLoginPwd(password);
             userMapper.updateById(user);

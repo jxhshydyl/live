@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 /**
  * @Classname MessageFeign
- * @Description TODO
+ * @Description
  * @Date 2020/11/11 19:04
  */
 @FeignClient("message")

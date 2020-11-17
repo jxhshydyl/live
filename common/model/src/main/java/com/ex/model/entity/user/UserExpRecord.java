@@ -6,7 +6,7 @@ import java.util.Date;
 
 /**
  * @Classname UserExpRecord
- * @Description TODO
+ * @Description
  * @Date 2020/11/15 15:41
  */
 @Data

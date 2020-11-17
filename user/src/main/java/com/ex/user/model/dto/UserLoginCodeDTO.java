@@ -6,7 +6,7 @@ import javax.validation.constraints.NotNull;
 
 /**
  * @Classname UserLoginCodeDTO
- * @Description TODO
+ * @Description
  * @Date 2020/11/16 23:50
  */
 @Data

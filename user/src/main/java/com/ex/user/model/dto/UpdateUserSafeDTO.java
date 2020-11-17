@@ -4,7 +4,7 @@ import lombok.Data;
 
 /**
  * @Classname UpdateUserSafeDTO
- * @Description TODO
+ * @Description
  * @Date 2020/11/13 20:45
  */
 @Data

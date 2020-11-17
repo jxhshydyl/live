@@ -8,9 +8,8 @@ import java.util.List;
 
 /**
  * @Classname LevelConfigVO
- * @Description TODO
+ * @Description
  * @Date 2020/11/15 20:22
- * @Author by liuweipeng
  */
 @Data
 public class LevelConfigVO {

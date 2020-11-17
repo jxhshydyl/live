@@ -7,9 +7,8 @@ import javax.validation.constraints.Null;
 
 /**
  * @Classname UserAuthDTO
- * @Description TODO
+ * @Description
  * @Date 2020/11/11 22:57
- * @Author by liuweipeng
  */
 @Data
 public class UserAuthDTO {

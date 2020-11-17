@@ -2,7 +2,7 @@ package com.ex.model.enums.user;
 
 /**
  * @Classname EnumUserAuthCardType
- * @Description TODO
+ * @Description
  * @Date 2020/11/11 23:19
  */
 public enum EnumUserAuthCardType {

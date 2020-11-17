@@ -8,7 +8,7 @@ import javax.validation.constraints.Pattern;
 
 /**
  * @Classname UserBankBindDTO
- * @Description TODO
+ * @Description
  * @Date 2020/11/14 16:43
  */
 @Data
@@ -59,4 +59,10 @@ public class UserBankBindDTO {
      */
     @Pattern(regexp = "^1|2$")
     private Integer status;
+
+    /**
+     * 短信验证码
+     */
+    @NotNull
+    private String code;
 }

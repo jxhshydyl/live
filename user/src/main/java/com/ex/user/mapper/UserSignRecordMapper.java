@@ -6,7 +6,7 @@ import org.springframework.stereotype.Repository;
 
 /**
  * @Classname UserSignRecordMapper
- * @Description TODO
+ * @Description
  * @Date 2020/11/15 17:13
  */
 @Repository

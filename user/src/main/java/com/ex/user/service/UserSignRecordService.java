@@ -6,9 +6,8 @@ import com.ex.model.vo.ResultVO;
 
 /**
  * @Classname UserSignRecordService
- * @Description TODO
+ * @Description
  * @Date 2020/11/15 17:14
- * @Author by liuweipeng
  */
 public interface UserSignRecordService extends IService<UserSignRecord> {
 

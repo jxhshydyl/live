@@ -14,7 +14,7 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * @Classname MessageUtil
- * @Description TODO
+ * @Description
  * @Date 2020/11/15 11:47
  */
 @Component
