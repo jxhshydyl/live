@@ -11,21 +11,21 @@
 
     <select id="selectNonSuccess" resultType="com.ex.model.entity.message.Message">
         select * from message
-        where status != 1 and FAIL_TIMES &lt; #{failTimes} and RECEIVE_ADDR != ''
-        and GMT_CREATE &gt;= #{fiveBefore} and GMT_CREATE &lt;  #{now} order by id asc limit 30
+        where status != 1 and fail_times &lt; #{failTimes} and receive_address != ''
+        and create_time &gt;= #{fiveBefore} and create_time &lt;  #{now} order by id asc limit 30
     </select>
 
     <update id="updateMessage">
         update message
         <set>
             <if test="status != null">
-                STATUS = #{status},
+                status = #{status},
             </if>
             <if test="failTimes != null">
-                FAIL_TIMES = #{failTimes}+FAIL_TIMES,
+                fail_times = #{failTimes}+fail_times,
             </if>
             <if test="sendTime != null">
-                SEND_TIME = #{sendTime},
+                send_time = #{sendTime},
             </if>
         </set>
         where id = #{id}
@@ -33,7 +33,7 @@
 
     <select id="selectGtIdNonSuccess" resultType="com.ex.model.entity.message.Message">
         select * from message
-        where status != 1 and FAIL_TIMES &lt; #{failTimes} and ID &gt; #{lastId} order by id asc limit 30
+        where status != 1 and fail_times &lt; #{failTimes} and id &gt; #{lastId} order by id asc limit 30
     </select>
 
 </mapper>

@@ -57,8 +57,11 @@ public class UserController extends BaseController {
     @PostMapping("/send/message")
     @ApiOperation(value = "发送短信")
     public ResultVO sendMessage(@RequestBody @Validated MessageDTO messageDTO) {
-        boolean isLogin = false;
-        return userService.sendMessage(isLogin, messageDTO);
+        Long userId = null;
+        if(isLogin()){
+            userId = getUid();
+        }
+        return userService.sendMessage(userId, messageDTO);
     }
 
     @PostMapping("/register")
@@ -77,6 +80,13 @@ public class UserController extends BaseController {
     @ApiOperation(value = "短信验证码登录")
     public ResultVO loginByCode(@RequestBody @Validated UserLoginCodeDTO userLoginCodeDTO) {
         return userService.loginByCode(userLoginCodeDTO);
+    }
+
+    @PostMapping("/out")
+    @ApiOperation(value = "退出登录")
+    public ResultVO loginOut() {
+        loginOut(getUid());
+        return Result.success();
     }
 
 }

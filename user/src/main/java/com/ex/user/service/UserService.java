@@ -17,7 +17,7 @@ import com.ex.user.model.dto.UserLoginDTO;
  */
 public interface UserService extends IService<User> {
 
-    ResultVO sendMessage(boolean isLogin, MessageDTO messageDTO);
+    ResultVO sendMessage(Long userId, MessageDTO messageDTO);
 
     ResultVO register(UserDTO userDTO);
 

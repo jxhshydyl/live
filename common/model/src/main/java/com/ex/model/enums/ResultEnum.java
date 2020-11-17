@@ -26,7 +26,7 @@ public enum ResultEnum {
     MESSAGE_FREQUENT(10010, "短信发送过于频繁"),
     MESSAGE_SEND_FAIL(10011, "短信发送失败"),
     MESSAGE_ERROR(10011, "短信验证码错误"),
-
+    USER_NAME_OR_PASSWORD_ERROR(10012, "用户名或密码错误"),
     /**file*/
     FILE_UPLOAD_ERROR(20000,"文件上传错误"),
 

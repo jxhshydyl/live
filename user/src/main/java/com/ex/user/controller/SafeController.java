@@ -6,6 +6,7 @@ import com.ex.model.enums.ResultEnum;
 import com.ex.model.enums.message.EnumMessageBusinessType;
 import com.ex.model.vo.Result;
 import com.ex.model.vo.ResultVO;
+import com.ex.user.enums.EnumType;
 import com.ex.user.model.dto.UpdateMobileDTO;
 import com.ex.user.model.dto.UpdateUserSafeDTO;
 import com.ex.user.service.UserService;
@@ -45,10 +46,10 @@ public class SafeController extends BaseController {
         }
         // 2020/11/13  检查短信验证码
         String userName = user.getUserName();
-        String dynamicCode = updateUserSafeDTO.getDynamicCode();
-        ResultVO resultVO = messageUtil.checkMessage(EnumMessageBusinessType.MODIFY_LOGIN_PWD, userName, dynamicCode);
+        String code = updateUserSafeDTO.getCode();
+        ResultVO resultVO = messageUtil.checkMessage(EnumMessageBusinessType.MODIFY_LOGIN_PWD, userName, code);
         if (resultVO.isSuccess()) {
-            String newPwd = EncryptUtil.SHA256(EncryptUtil.MD5(String.valueOf(userId)) + EncryptUtil.SHA(updateUserSafeDTO.getNewLoginPwd()));
+            String newPwd = EncryptUtil.SHA256(EncryptUtil.MD5(String.valueOf(userId)) + EncryptUtil.SHA(updateUserSafeDTO.getLoginPwd()));
             // 验证dynamicCode
             User temp = new User();
             temp.setId(userId);
@@ -76,6 +77,9 @@ public class SafeController extends BaseController {
         // TODO: 2020/11/13  验证Mobile,dynamicCode
         User temp = new User();
         temp.setId(userId);
+        if (user.getType() == EnumType.MOBILE.getCode()) {
+            temp.setUserName(updateMobileDTO.getMobile());
+        }
         temp.setMobile(updateMobileDTO.getMobile());
         userService.updateById(temp);
         return Result.success();

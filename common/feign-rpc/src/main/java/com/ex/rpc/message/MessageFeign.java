@@ -4,6 +4,7 @@ import com.ex.model.entity.message.Message;
 import com.ex.model.vo.ResultVO;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 /**
  * @Classname MessageFeign
@@ -14,5 +15,5 @@ import org.springframework.web.bind.annotation.PostMapping;
 public interface MessageFeign {
 
     @PostMapping("/message")
-    ResultVO sendMessage(Message message);
+    ResultVO sendMessage(@RequestBody Message message);
 }

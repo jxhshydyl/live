@@ -7,24 +7,30 @@ import com.ex.model.constant.RedisKeyConstant;
 import com.ex.model.constant.RedisTimeConstant;
 import com.ex.model.entity.message.Message;
 import com.ex.model.entity.user.User;
+import com.ex.model.entity.user.UserInfo;
+import com.ex.model.enums.EnumEither;
 import com.ex.model.enums.ResultEnum;
 import com.ex.model.enums.message.EnumMessageBusinessType;
 import com.ex.model.enums.message.EnumMessageType;
 import com.ex.model.vo.Result;
 import com.ex.model.vo.ResultVO;
 import com.ex.rpc.message.MessageFeign;
+import com.ex.user.enums.EnumType;
 import com.ex.user.mapper.UserMapper;
 import com.ex.user.model.dto.MessageDTO;
 import com.ex.user.model.dto.UserDTO;
 import com.ex.user.model.dto.UserLoginCodeDTO;
 import com.ex.user.model.dto.UserLoginDTO;
 import com.ex.user.model.vo.SessionUser;
+import com.ex.user.service.UserInfoService;
 import com.ex.user.service.UserService;
 import com.ex.user.util.JWTUtils;
 import com.ex.user.util.MessageUtil;
 import com.ex.util.encrypt.EncryptUtil;
+import io.swagger.annotations.Api;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
@@ -56,10 +62,12 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     @Autowired
     private MessageUtil messageUtil;
 
+    @Autowired
+    private UserInfoService userInfoService;
+
     @Override
-    public ResultVO sendMessage(boolean isLogin, MessageDTO messageDTO) {
+    public ResultVO sendMessage(Long userId, MessageDTO messageDTO) {
         //登录发送短信
-        Long userId = null;
         String userName = null;
         String receiveAddress = messageDTO.getReceiveAddress();
         String countryCode = messageDTO.getCountryCode();
@@ -68,8 +76,12 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         if (msgType == null) {
             return Result.error(ResultEnum.MESSAGE_TYPE_ERROR);
         }
-        if (isLogin) {
-            //未登录发送短信
+        boolean needLogin = msgType.isNeedLogin();
+        if (needLogin && userId == null) {
+            return Result.error(ResultEnum.USER_NOT_LOGIN);
+        }
+        if (userId != null) {
+            //登录发送短信
             User user = userMapper.selectById(userId);
             userName = user.getUserName();
             receiveAddress = user.getMobile();
@@ -101,6 +113,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
             if (resultVO.isSuccess()) {
                 return messageFeign.sendMessage(message);
             }
+            return resultVO;
         } catch (Exception e) {
             log.error("发送短信异常：", e);
         }
@@ -118,21 +131,41 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         Long recommendId = null;
         if (StringUtils.isNotBlank(recommendCode)) {
             User recommendUser = userMapper.selectOne(new LambdaQueryWrapper<User>().eq(User::getRecommendCode, recommendCode));
-            if (recommendUser == null) {
-                return Result.error(ResultEnum.USER_NAME_EXISTS);
+            if (recommendUser != null) {
+                recommendId = recommendUser.getId();
             }
-            recommendId = recommendUser.getId();
         }
         // 2020/11/14   校验短信验证码
         String code = userDTO.getCode();
-        String mobile = userDTO.getMobile();
+        String mobile = null;
+        String email = null;
+        int mobileAuth = 0;
+        int emailAuth = 0;
+        int type = 0;
+        if (userDTO.getUserName().contains("@")) {
+            email = userDTO.getUserName();
+            emailAuth = EnumEither.EFFECTIVE.getCode();
+            type = EnumType.EMAIL.getCode();
+        } else {
+            mobile = userDTO.getUserName();
+            mobileAuth = EnumEither.EFFECTIVE.getCode();
+            type = EnumType.MOBILE.getCode();
+        }
         ResultVO resultVO = messageUtil.checkMessage(EnumMessageBusinessType.REGISTER, mobile, code);
         if (resultVO.isSuccess()) {
             user = new User();
+            user.setType(type);
             user.setUserName(userDTO.getUserName());
+            user.setMobile(mobile);
+            user.setMobileAuth(mobileAuth);
+            user.setEmail(email);
+            user.setEmailAuth(emailAuth);
             user.setRecommendId(recommendId);
             userMapper.insert(user);
-            String password = EncryptUtil.SHA256(EncryptUtil.MD5(String.valueOf(user.getId())) + EncryptUtil.SHA(user.getLoginPwd()));
+            UserInfo userInfo = new UserInfo();
+            userInfo.setUserId(user.getId());
+            userInfoService.save(userInfo);
+            String password = EncryptUtil.SHA256(EncryptUtil.MD5(String.valueOf(user.getId())) + EncryptUtil.SHA(userDTO.getLoginPwd()));
             user.setLoginPwd(password);
             userMapper.updateById(user);
             return Result.success();
@@ -143,7 +176,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     @Override
     public ResultVO loginByPassWord(UserLoginDTO userLoginDTO) {
         String userName = userLoginDTO.getUserName();
-        Long count = (Long) redisTemplate.opsForValue().get(RedisKeyConstant.LOGIN_PASSWORD_ERROR + userName);
+        Integer count = (Integer) redisTemplate.opsForValue().get(RedisKeyConstant.LOGIN_PASSWORD_ERROR + userName);
         if (count != null && count >= 5) {
             return Result.error(ResultEnum.USER_PASSWORD_INPUT_ERROR);
         }
@@ -162,6 +195,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
             } else {
                 redisTemplate.opsForValue().set(RedisKeyConstant.LOGIN_PASSWORD_ERROR + userName, 1, RedisTimeConstant.LOGIN_PASSWORD_ERROR_LOCK, TimeUnit.HOURS);
             }
+            return Result.error(ResultEnum.USER_NAME_OR_PASSWORD_ERROR);
         }
         redisTemplate.delete(RedisKeyConstant.LOGIN_PASSWORD_ERROR + userName);
         return login(user);
@@ -175,7 +209,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         if (user == null) {
             return Result.error(ResultEnum.USER_NOT);
         }
-        ResultVO resultVO = messageUtil.checkMessage(EnumMessageBusinessType.REGISTER, userName, userLoginCodeDTO.getCode());
+        ResultVO resultVO = messageUtil.checkMessage(EnumMessageBusinessType.LOGIN_CODE, userName, userLoginCodeDTO.getCode());
         if (resultVO.isSuccess()) {
             return login(user);
         }

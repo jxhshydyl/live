@@ -1,5 +1,6 @@
 package com.ex.user.controller;
 
+import com.ex.model.constant.Constants;
 import com.ex.model.constant.RedisKeyConstant;
 import com.ex.model.enums.ResultEnum;
 import com.ex.model.exceptions.BusinessException;
@@ -9,6 +10,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.concurrent.TimeUnit;
 
 @Component
 public class BaseController {
@@ -36,6 +38,13 @@ public class BaseController {
         if (session == null) {
             return false;
         }
+        return true;
+    }
+
+    protected boolean loginOut(long userId) {
+        String headerStr = request.getHeader(X_CLIENT_TOKEN_USER);
+        redisTemplate.delete(RedisKeyConstant.SSO_TOKEN + userId);
+        redisTemplate.delete(RedisKeyConstant.SSO_SESSION + headerStr);
         return true;
     }
 }

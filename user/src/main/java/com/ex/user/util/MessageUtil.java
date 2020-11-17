@@ -34,6 +34,9 @@ public class MessageUtil {
     public ResultVO sendMessage(EnumMessageBusinessType businessType, String receiveAddress, String code) {
         String key = businessType.getId() + "_" + receiveAddress;
         String today = TimeUtil.getYYYYMMddHH(0);
+        if (redisTemplate.hasKey(RedisKeyConstant.SEND_MESSAGE + key)) {
+            return Result.error(ResultEnum.MESSAGE_FREQUENT);
+        }
         if (redisTemplate.hasKey(RedisKeyConstant.SEND_MESSAGE_COUNT + today + key)) {
             Integer count = (Integer) redisTemplate.opsForValue().get(RedisKeyConstant.SEND_MESSAGE_COUNT + today + key);
             if (count != null && count > 5) {

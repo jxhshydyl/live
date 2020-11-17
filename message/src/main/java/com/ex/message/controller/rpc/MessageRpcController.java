@@ -6,6 +6,7 @@ import com.ex.model.vo.Result;
 import com.ex.model.vo.ResultVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -20,7 +21,7 @@ public class MessageRpcController {
     private MessageService messageService;
 
     @PostMapping("/message")
-    public ResultVO sendMessage(Message message) {
+    public ResultVO sendMessage(@RequestBody Message message) {
         return Result.success(messageService.save(message));
     }
 

@@ -28,7 +28,7 @@ public class UserInfoDTO {
     /**
      * 头像路径
      */
-    private Integer headPortrait;
+    private String headPortrait;
     /**
      * 性别  1：男  0：女
      */

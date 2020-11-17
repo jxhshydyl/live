@@ -9,6 +9,6 @@ import lombok.Data;
  */
 @Data
 public class UpdateUserSafeDTO {
-    private String newLoginPwd;
-    private String dynamicCode;
+    private String loginPwd;
+    private String code;
 }
