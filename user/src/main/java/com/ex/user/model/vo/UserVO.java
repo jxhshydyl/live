@@ -1,7 +1,5 @@
 package com.ex.user.model.vo;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.Data;
 
 import java.util.Date;
@@ -109,4 +107,6 @@ public class UserVO {
      * 是否禁止提现 1:禁止提现  0:可以提现
      */
     private Integer withdraw;
+
+    private UserInfoVO userInfoVO;
 }

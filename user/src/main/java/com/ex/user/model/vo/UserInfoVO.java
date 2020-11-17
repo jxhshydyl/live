@@ -1,29 +1,21 @@
-package com.ex.model.entity.user;
+package com.ex.user.model.vo;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.experimental.Accessors;
 
 import java.util.Date;
 
 /**
- * (user_info)实体类
- *
- * @description 由 Mybatisplus Code Generator 创建
- * @since 2020-11-11 18:24:23
+ * @Date: 17/11/2020 下午 2:54
+ * @Version: 1.0
+ * @Description:
  */
 @Data
-@NoArgsConstructor
-@Accessors(chain = true)
-@TableName("user_info")
-public class UserInfo {
+public class UserInfoVO {
     /**
      * id
      */
-    @TableId(type = IdType.AUTO)
     private Long id;
     /**
      * userId
@@ -101,5 +93,4 @@ public class UserInfo {
      * updateTime
      */
     private Date updateTime;
-
 }
