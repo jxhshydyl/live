@@ -10,6 +10,7 @@ import com.ex.user.model.vo.LevelConfigVO;
 import com.ex.user.service.AuthConfigService;
 import com.ex.user.service.LevelConfigService;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +31,7 @@ import java.util.List;
 @Slf4j
 @RestController
 @RequestMapping("/user/api/{device}/{version}")
+@Api(value = "level", tags = "等级权限信息")
 public class LevelConfigController {
 
     @Autowired
@@ -39,6 +41,7 @@ public class LevelConfigController {
     private AuthConfigService authConfigService;
 
     @GetMapping("/level/config")
+    @ApiOperation(value = "获取等级权限信息")
     public ResultVO getUserMember() {
         List<LevelConfig> list = levelConfigService.list(new LambdaQueryWrapper<LevelConfig>()
                 .eq(LevelConfig::getStatus, EnumEither.EFFECTIVE.getCode()));

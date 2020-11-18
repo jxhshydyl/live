@@ -36,8 +36,8 @@ import java.io.PrintWriter;
  */
 
 @RestController
-@RequestMapping("/file/api/v1/")
-public class ImageController {
+@RequestMapping("/file/api/{device}/{version}")
+public class ImageController extends BaseController {
 
     @Autowired
     private HttpServletRequest request;
@@ -69,7 +69,7 @@ public class ImageController {
 
     // 公开的图片上传服务, 存放目录与鉴权上传的目录分开,
     // 图片获取使用nginx代理(nginx必须设置max_clinet_body限制上传文件大小)
-    @RequestMapping(value = {"/image/public/upload", "/image/public/upload",}, method = RequestMethod.POST)
+    @PostMapping(value = "/image/public/upload")
     @ResponseBody
     public ResultVO uploadImagePublic() {
         // 过滤来源
@@ -94,7 +94,7 @@ public class ImageController {
 
     // 非公开的图片上传服务, 必须鉴权才可上传, nginx不代理目录 (nginx必须设置max_clinet_body限制上传文件大小)
     @CrossOrigin(origins = "*", allowCredentials = "true", allowedHeaders = "*")
-    @RequestMapping(value = {"/image/upload", "/image/upload",}, method = RequestMethod.POST)
+    @PostMapping(value = "/image/upload")
     @ResponseBody
     public ResultVO uploadImagePrivate() {
         // 过滤来源
@@ -129,7 +129,7 @@ public class ImageController {
      * 判断用户对文件的权限    √
      * 返回字节流             √
      */
-    @RequestMapping(value = {"/image/get", "/image/get",}, method = RequestMethod.GET)
+    @GetMapping(value = "/image/get")
     public void getPrivateImage(@RequestParam("size") String size,
                                 @RequestParam("filename") String filename) throws IOException {
         //登录

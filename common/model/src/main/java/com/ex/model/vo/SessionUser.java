@@ -4,7 +4,7 @@
  * @Description:
  * @author vDalf   2020年5月8日 下午4:38:07
  */
-package com.ex.user.model.vo;
+package com.ex.model.vo;
 
 import lombok.Data;
 

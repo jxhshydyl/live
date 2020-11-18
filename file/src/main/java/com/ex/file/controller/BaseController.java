@@ -1,4 +1,4 @@
-package com.ex.user.controller;
+package com.ex.file.controller;
 
 import com.ex.model.constant.RedisKeyConstant;
 import com.ex.model.enums.ResultEnum;

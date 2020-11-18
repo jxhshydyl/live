@@ -52,6 +52,10 @@ public class MemberPrivilegeConfig {
      */
     private Integer status;
     /**
+     * 顺序  越大越前
+     */
+    private Integer sort;
+    /**
      * createTime
      */
     private Date createTime;

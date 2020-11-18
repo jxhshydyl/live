@@ -1,10 +1,9 @@
 package com.ex.file.service;
 
+import com.ex.file.config.SourcePathProperties;
 import com.ex.file.enums.ImageSizeEnum;
 import com.ex.file.exception.CustomException;
-import com.ex.file.config.SourcePathProperties;
 import com.ex.file.service.entity.Filepath;
-import com.google.common.base.Strings;
 import net.coobird.thumbnailator.Thumbnails;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
@@ -143,7 +142,9 @@ public class ImageFileService {
             throw new CustomException("上传失败: 参考值10112");
         } finally {
             try {
-                if (fileOutputStream != null) fileOutputStream.close();
+                if (fileOutputStream != null){
+                    fileOutputStream.close();
+                }
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -153,7 +154,9 @@ public class ImageFileService {
                 e.printStackTrace();
             }
             try {
-                if (random != null) random.close();
+                if (random != null){
+                    random.close();
+                }
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -288,7 +291,7 @@ public class ImageFileService {
                     SourcePathProperties.PRIVATE_UPLOAD_PATH, fo.path, userId, fo.name, sizeEnum.getName(), fo.suffix);
         }
 //        }
-        logger.info((Strings.isNullOrEmpty(userId) ? "非授权" : "授权ID" + userId) + "用户请求下载文件名: " + filename);
+        logger.info((StringUtils.isBlank(userId) ? "非授权" : "授权ID" + userId) + "用户请求下载文件名: " + filename);
         logger.info("组合后文件路径: " + realPath);
         // 检查 文件真实存在
         File file = new File(realPath);

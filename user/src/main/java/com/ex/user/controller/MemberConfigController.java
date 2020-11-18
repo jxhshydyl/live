@@ -6,6 +6,8 @@ import com.ex.model.enums.EnumEither;
 import com.ex.model.vo.Result;
 import com.ex.model.vo.ResultVO;
 import com.ex.user.service.MemberConfigService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,12 +26,14 @@ import java.util.List;
 @Slf4j
 @RestController
 @RequestMapping("/user/api/{device}/{version}")
+@Api(value = "member", tags = "会员配置信息")
 public class MemberConfigController {
 
     @Autowired
     public MemberConfigService memberConfigService;
 
     @GetMapping("/member/config")
+    @ApiOperation(value = "获取会员类型信息")
     public ResultVO getMemberConfig() {
         List<MemberConfig> list = memberConfigService.list(new LambdaQueryWrapper<MemberConfig>()
                 .eq(MemberConfig::getStatus, EnumEither.EFFECTIVE.getCode()));
