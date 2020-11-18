@@ -25,11 +25,7 @@ public class LevelConfigVO {
      * 经验值
      */
     private Integer exp;
-    /**
-     * createTime
-     */
-    private Date createTime;
 
-    private List<AuthConfig> authConfigs;
+    private List<AuthConfigVO> auth;
 
 }

@@ -7,45 +7,50 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 /**
- * 会员特权配置(member_privilege_config)实体类
+ * 任务配置(config_task)实体类
  *
  * @author
  * @description 由 Mybatisplus Code Generator 创建
- * @since 2020-11-15 19:57:41
+ * @since 2020-11-18 23:25:42
  */
 @Data
 @NoArgsConstructor
 @Accessors(chain = true)
-@TableName("member_privilege_config")
-public class MemberPrivilegeConfig {
+@TableName("config_task")
+public class ConfigTask {
     /**
      * id
      */
     @TableId(type = IdType.AUTO)
     private Integer id;
     /**
+     * 任务类型  0：一次性任务   1：持续性任务
+     */
+    private Integer type;
+    /**
+     * 等级限制
+     */
+    private Integer level;
+    /**
      * 会员权限名称
      */
     private String name;
-    /**
-     * 会员权限小图标
-     */
-    private String img;
-    /**
-     * 会员权限展示图
-     */
-    private String banner;
     /**
      * 描述
      */
     private String description;
     /**
-     * 说明
+     * 奖励经验
      */
-    private String introduce;
+    private Integer rewardExp;
+    /**
+     * 奖励积分
+     */
+    private BigDecimal rewardIntegral;
     /**
      * 状态  1：有效  0：无效
      */
@@ -66,5 +71,4 @@ public class MemberPrivilegeConfig {
      * 更新用户
      */
     private Integer updateUserId;
-
 }

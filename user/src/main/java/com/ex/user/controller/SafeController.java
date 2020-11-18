@@ -34,15 +34,15 @@ public class SafeController extends BaseController {
 
     private static Logger log = LoggerFactory.getLogger(SafeController.class);
 
-    @GetMapping(value = "/check/user/{name}")
+    @GetMapping(value = "/check/{name}")
     @ResponseBody
     @ApiOperation(value = "检查用户名是否存在")
     public ResultVO checkUser(@PathVariable("name") String name) {
         User user = userService.getOne(new LambdaQueryWrapper<User>().eq(User::getUserName, name));
         if (user == null) {
-            return Result.error(ResultEnum.USER_NOT);
+            return Result.success(false);
         }
-        return Result.success();
+        return Result.success(true);
     }
 
     @PostMapping(value = "/find/password")
@@ -55,7 +55,7 @@ public class SafeController extends BaseController {
             return Result.error(ResultEnum.USER_NOT);
         }
         String code = findPasswordDTO.getCode();
-        ResultVO resultVO = messageUtil.checkMessage(EnumMessageBusinessType.MODIFY_LOGIN_PWD, userName, code);
+        ResultVO resultVO = messageUtil.checkMessage(EnumMessageBusinessType.FIND_LOGIN_PWD, userName, code);
         if (resultVO.isSuccess()) {
             String newPwd = EncryptUtil.SHA256(EncryptUtil.MD5(String.valueOf(user.getId())) + EncryptUtil.SHA(findPasswordDTO.getLoginPwd()));
             User temp = new User();

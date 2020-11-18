@@ -1,31 +1,30 @@
-package com.ex.user.model.dto;
+package com.ex.user.model.vo;
 
 import lombok.Data;
 
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Null;
-
 /**
- * @Classname UserBankBindDTO
+ * @Classname UserBankVO
  * @Description
- * @Date 2020/11/14 16:43
+ * @Date 2020/11/18 21:39
  */
 @Data
-public class UserBankBindDTO {
+public class UserBankVO {
+    /**
+     * id
+     */
+    private Long id;
     /**
      * 用户id
      */
-    @Null
     private Long userId;
     /**
-     * 真实姓名
+     * 真实名称
      */
-    @NotNull
     private String realName;
     /**
      * 1：银行卡  2：支付宝  3：微信
      */
-    private Integer bankType;
+    private Integer type;
     /**
      * 银行名称
      */
@@ -33,34 +32,17 @@ public class UserBankBindDTO {
     /**
      * 开户行
      */
-    @NotNull
     private String openBank;
     /**
      * 支行
      */
-    @NotNull
     private String branchBank;
     /**
      * 账号
      */
-    @NotNull
     private String account;
-    /**
-     * 手机号
-     */
-    private String mobiles;
-    /**
-     * 图片
-     */
-    private String img;
     /**
      * 1：有效  0：无效
      */
     private Integer status;
-
-    /**
-     * 短信验证码
-     */
-    @NotNull
-    private String code;
 }

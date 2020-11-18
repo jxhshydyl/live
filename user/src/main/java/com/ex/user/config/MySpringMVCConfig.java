@@ -20,7 +20,12 @@ public class MySpringMVCConfig implements WebMvcConfigurer {
                 .excludePathPatterns("/user/api/*/*/login/code")
                 .excludePathPatterns("/user/api/*/*/send/message")
                 .excludePathPatterns("/user/api/*/*/register")
-                .excludePathPatterns("/user/api/*/*//find/password")
+                .excludePathPatterns("/user/api/*/*/find/password")
+                .excludePathPatterns("/user/api/*/*/check/*")
+                .excludePathPatterns("/user/api/*/*/level/config")
+                .excludePathPatterns("/user/api/*/*/member/config")
+                .excludePathPatterns("/user/api/*/*/member/privilege")
+                .excludePathPatterns("/user/api/*/*/task/config")
                 .excludePathPatterns("/swagger-resources/**", "/webjars/**", "/v2/**", "/swagger-ui.html/**")
                 .addPathPatterns("/**");
     }

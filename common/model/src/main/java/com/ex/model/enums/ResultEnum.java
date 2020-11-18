@@ -9,6 +9,7 @@ public enum ResultEnum {
      */
     FAIL(40100, "操作失败"),
     PARAM_ERROR(40101, "参数错误"),
+    UNAUTHORIZED(40102, "越权访问"),
     /**
      * user
      */
@@ -28,6 +29,8 @@ public enum ResultEnum {
     USER_NAME_OR_PASSWORD_ERROR(10012, "用户名或密码错误"),
     USER_AUTH_NOT(10013, "用户未实名认证"),
     USER_EXIST_AUTH_AUDIT(10014, "用户存在未审核的实名认证"),
+    USER_BANK_EXIST(10015, "账户已被绑定"),
+    USER_BANK_NOT(10016, "账户不存在"),
     /**file*/
     FILE_UPLOAD_ERROR(20000,"文件上传错误"),
 

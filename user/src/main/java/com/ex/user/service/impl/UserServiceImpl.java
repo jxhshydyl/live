@@ -78,7 +78,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         if (needLogin && userId == null) {
             return Result.error(ResultEnum.USER_NOT_LOGIN);
         }
-        if (userId != null) {
+        if (userId != null && needLogin) {
             //登录发送短信
             User user = userMapper.selectById(userId);
             userName = user.getUserName();

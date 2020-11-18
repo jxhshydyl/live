@@ -25,6 +25,7 @@ public class UserAuthDTO {
     /**
      * 证件类型（1，身份证，2护照）
      */
+    @NotNull
     private Integer cardType;
     /**
      * 姓名

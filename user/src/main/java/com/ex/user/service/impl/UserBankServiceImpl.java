@@ -12,13 +12,18 @@ import com.ex.model.vo.Result;
 import com.ex.model.vo.ResultVO;
 import com.ex.user.mapper.UserBankMapper;
 import com.ex.user.model.dto.UserBankBindDTO;
+import com.ex.user.model.dto.UserBankUpdateDTO;
+import com.ex.user.model.vo.UserBankVO;
 import com.ex.user.service.UserBankService;
 import com.ex.user.service.UserService;
 import com.ex.user.util.MessageUtil;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -41,12 +46,28 @@ public class UserBankServiceImpl extends ServiceImpl<UserBankMapper, UserBank> i
     private MessageUtil messageUtil;
 
     @Override
-    public ResultVO getBank(Long userId) {
+    public ResultVO getBanks(Long userId) {
         List<UserBank> userBanks = userBankMapper.selectList(new LambdaQueryWrapper<UserBank>()
                 .eq(UserBank::getUserId, userId)
-                .eq(UserBank::getStatus, EnumEither.EFFECTIVE.getCode())
-                .eq(UserBank::getIsDeleted,EnumEither.NOT_DELETE.getCode()));
-        return Result.success(userBanks);
+                .eq(UserBank::getIsDeleted, EnumEither.NOT_DELETE.getCode()));
+        List<UserBankVO> list = new ArrayList<>();
+        userBanks.forEach(userBank -> {
+            UserBankVO userBankVO = new UserBankVO();
+            BeanUtils.copyProperties(userBank, userBankVO);
+            list.add(userBankVO);
+        });
+        return Result.success(list);
+    }
+
+    @Override
+    public ResultVO getBank(Integer id, Long userId) {
+        UserBank userBank = userBankMapper.selectById(id);
+        if (!userBank.getUserId().equals(userId)) {
+            return Result.error(ResultEnum.UNAUTHORIZED);
+        }
+        UserBankVO userBankVO = new UserBankVO();
+        BeanUtils.copyProperties(userBank, userBankVO);
+        return Result.success(userBankVO);
     }
 
     @Override
@@ -55,9 +76,15 @@ public class UserBankServiceImpl extends ServiceImpl<UserBankMapper, UserBank> i
         if (user == null) {
             return Result.error(ResultEnum.USER_NOT);
         }
+
         // TODO: 2020/11/14 校验银行卡号
+        UserBank userBank = userBankMapper.selectOne(new LambdaQueryWrapper<UserBank>()
+                .eq(UserBank::getAccount, userBankBindDTO.getAccount()));
+        if (userBank != null) {
+            return Result.error(ResultEnum.USER_BANK_EXIST);
+        }
         // 2020/11/14 校验实名认证
-        if(!user.getRealAuth().equals(EnumUserAuthStatus.PASS.getCode())){
+        if (!user.getRealAuth().equals(EnumUserAuthStatus.PASS.getCode())) {
             return Result.error(ResultEnum.USER_AUTH_NOT);
         }
         // 2020/11/14 校验短信验证码
@@ -65,7 +92,7 @@ public class UserBankServiceImpl extends ServiceImpl<UserBankMapper, UserBank> i
         String code = userBankBindDTO.getCode();
         ResultVO resultVO = messageUtil.checkMessage(EnumMessageBusinessType.BINDING_BANK_CARD, userName, code);
         if (resultVO.isSuccess()) {
-            UserBank userBank = new UserBank();
+            userBank = new UserBank();
             userBank.setUserId(user.getId());
             userBank.setAccount(userBankBindDTO.getAccount());
             userBank.setBankName(userBankBindDTO.getBankName());
@@ -75,5 +102,22 @@ public class UserBankServiceImpl extends ServiceImpl<UserBankMapper, UserBank> i
             return Result.success();
         }
         return resultVO;
+    }
+
+    @Override
+    public ResultVO updateBankStatus(UserBankUpdateDTO userBankUpdateDTO) {
+        Long id = userBankUpdateDTO.getId();
+        UserBank userBank = userBankMapper.selectById(userBankUpdateDTO.getId());
+        if (userBank == null) {
+            return Result.error(ResultEnum.USER_BANK_NOT);
+        }
+        if (!userBank.getUserId().equals(userBankUpdateDTO.getUserId())) {
+            return Result.error(ResultEnum.UNAUTHORIZED);
+        }
+        UserBank temp = new UserBank();
+        temp.setId(id);
+        temp.setStatus(userBankUpdateDTO.getStatus());
+        userBankMapper.updateById(temp);
+        return Result.success();
     }
 }

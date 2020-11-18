@@ -30,17 +30,13 @@ public class UserBank {
      */
     private Long userId;
     /**
-     * 用户名称
-     */
-    private String userName;
-    /**
      * 真实名称
      */
     private String realName;
     /**
      * 1：银行卡  2：支付宝  3：微信
      */
-    private Integer bankType;
+    private Integer type;
     /**
      * 银行名称
      */

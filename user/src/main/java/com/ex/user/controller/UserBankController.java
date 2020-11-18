@@ -1,7 +1,9 @@
 package com.ex.user.controller;
 
+import com.ex.model.entity.user.UserBank;
 import com.ex.model.vo.ResultVO;
 import com.ex.user.model.dto.UserBankBindDTO;
+import com.ex.user.model.dto.UserBankUpdateDTO;
 import com.ex.user.service.UserBankService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -26,9 +28,15 @@ public class UserBankController extends BaseController {
     private UserBankService userBankService;
 
     @GetMapping("/bank")
+    @ApiOperation(value = "获取银行卡列表")
+    public ResultVO getBanks() {
+        return userBankService.getBanks(getUid());
+    }
+
+    @GetMapping("/bank/{id}")
     @ApiOperation(value = "获取银行卡")
-    public ResultVO getBank() {
-        return userBankService.getBank(getUid());
+    public ResultVO getBank(@PathVariable("id") Integer id) {
+        return userBankService.getBank(id,getUid());
     }
 
     @PostMapping("/bank")
@@ -36,6 +44,13 @@ public class UserBankController extends BaseController {
     public ResultVO bingBank(@RequestBody @Validated UserBankBindDTO userBankBindDTO) {
         userBankBindDTO.setUserId(getUid());
         return userBankService.bingBank(userBankBindDTO);
+    }
+
+    @PutMapping("/bank")
+    @ApiOperation(value = "更新银行卡状态")
+    public ResultVO updateBankStatus(@RequestBody @Validated UserBankUpdateDTO userBankUpdateDTO) {
+        userBankUpdateDTO.setUserId(getUid());
+        return userBankService.updateBankStatus(userBankUpdateDTO);
     }
 
 }

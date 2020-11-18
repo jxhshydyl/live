@@ -6,6 +6,7 @@ import com.ex.model.entity.base.LevelConfig;
 import com.ex.model.enums.EnumEither;
 import com.ex.model.vo.Result;
 import com.ex.model.vo.ResultVO;
+import com.ex.user.model.vo.AuthConfigVO;
 import com.ex.user.model.vo.LevelConfigVO;
 import com.ex.user.service.AuthConfigService;
 import com.ex.user.service.LevelConfigService;
@@ -53,7 +54,13 @@ public class LevelConfigController {
             List<AuthConfig> authConfigs = authConfigService.list(new LambdaQueryWrapper<AuthConfig>()
                     .eq(AuthConfig::getStatus, EnumEither.EFFECTIVE.getCode())
                     .le(AuthConfig::getLevel, level));
-            levelConfigVO.setAuthConfigs(authConfigs);
+            List<AuthConfigVO> authConfigVOS = new ArrayList<>();
+            authConfigs.forEach(authConfig -> {
+                AuthConfigVO authConfigVO = new AuthConfigVO();
+                BeanUtils.copyProperties(authConfig, authConfigVO);
+                authConfigVOS.add(authConfigVO);
+            });
+            levelConfigVO.setAuth(authConfigVOS);
             levelConfigVOS.add(levelConfigVO);
         });
         return Result.success(levelConfigVOS);

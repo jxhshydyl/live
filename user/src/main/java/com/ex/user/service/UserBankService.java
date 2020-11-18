@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.ex.model.entity.user.UserBank;
 import com.ex.model.vo.ResultVO;
 import com.ex.user.model.dto.UserBankBindDTO;
+import com.ex.user.model.dto.UserBankUpdateDTO;
 
 /**
  * 服务接口
@@ -14,8 +15,11 @@ import com.ex.user.model.dto.UserBankBindDTO;
  */
 public interface UserBankService extends IService<UserBank> {
 
-    ResultVO getBank(Long userId);
+    ResultVO getBanks(Long userId);
+
+    ResultVO getBank(Integer id,Long userId);
 
     ResultVO bingBank(UserBankBindDTO userBankBindDTO);
 
+    ResultVO updateBankStatus(UserBankUpdateDTO userBankUpdateDTO);
 }

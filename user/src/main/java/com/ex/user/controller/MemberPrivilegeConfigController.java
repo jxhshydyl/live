@@ -5,15 +5,19 @@ import com.ex.model.entity.base.MemberPrivilegeConfig;
 import com.ex.model.enums.EnumEither;
 import com.ex.model.vo.Result;
 import com.ex.model.vo.ResultVO;
+import com.ex.user.model.vo.MemberConfigVO;
+import com.ex.user.model.vo.MemberPrivilegeConfigVO;
 import com.ex.user.service.MemberPrivilegeConfigService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -38,6 +42,12 @@ public class MemberPrivilegeConfigController {
         List<MemberPrivilegeConfig> list = memberPrivilegeConfigService.list(new LambdaQueryWrapper<MemberPrivilegeConfig>()
                 .eq(MemberPrivilegeConfig::getStatus, EnumEither.EFFECTIVE.getCode())
                 .orderByDesc(MemberPrivilegeConfig::getSort));
-        return Result.success(list);
+        List<MemberPrivilegeConfigVO> privilegeConfigVOS = new ArrayList<>();
+        list.forEach(memberPrivilegeConfig -> {
+            MemberPrivilegeConfigVO privilegeConfigVO = new MemberPrivilegeConfigVO();
+            BeanUtils.copyProperties(memberPrivilegeConfig, privilegeConfigVO);
+            privilegeConfigVOS.add(privilegeConfigVO);
+        });
+        return Result.success(privilegeConfigVOS);
     }
 }

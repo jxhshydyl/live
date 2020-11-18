@@ -16,7 +16,7 @@ public class UserVO {
      */
     private Long id;
     /**
-     * 用户名类型 1：手机号码，2：邮箱
+     * 用户类型 0：普通用户   1：讲师
      */
     private Integer userType;
     /**
@@ -32,26 +32,6 @@ public class UserVO {
      */
     private String email;
     /**
-     * 安全密码强度
-     */
-    private Integer safePwdLevel;
-    /**
-     * 是否删除(0未删除，1删除)
-     */
-    private Integer isDeleted;
-    /**
-     * 是否锁定(0未锁定，1锁定)
-     */
-    private Integer isLock;
-    /**
-     * 推荐人Id
-     */
-    private Long recommendId;
-    /**
-     * recommendCode
-     */
-    private String recommendCode;
-    /**
      * 是否手机认证(0为未认证，1为已认证)
      */
     private Integer mobileAuth;
@@ -63,22 +43,6 @@ public class UserVO {
      * 是否实名认证(0为未提交，1，审核中，2审核不通过，3审核通过)
      */
     private Integer realAuth;
-    /**
-     * 注册时间
-     */
-    private Date registerTime;
-    /**
-     * 注册IP
-     */
-    private String registerIp;
-    /**
-     * 最后登陆时间
-     */
-    private Date lastLoginTime;
-    /**
-     * 最后登陆IP
-     */
-    private String lastLoginIp;
     /**
      * 是否禁止提现 1:禁止提现  0:可以提现
      */
