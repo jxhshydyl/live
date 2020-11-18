@@ -7,7 +7,10 @@ package com.ex.model.enums;
  */
 public enum EnumEither {
     INVALID(0, "无效"),
-    EFFECTIVE(1, "有效");
+    EFFECTIVE(1, "有效"),
+
+    DELETE(1, "删除"),
+    NOT_DELETE(0, "未删除");
     private int code;
     private String msg;
 

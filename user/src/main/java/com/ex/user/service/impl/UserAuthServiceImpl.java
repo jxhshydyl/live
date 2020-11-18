@@ -35,9 +35,19 @@ public class UserAuthServiceImpl extends ServiceImpl<UserAuthMapper, UserAuth> i
     private UserAuthMapper userAuthMapper;
 
     @Override
+    public ResultVO getAuth(Long userId) {
+        UserAuth userAuth = userAuthMapper.selectOne(new LambdaQueryWrapper<UserAuth>()
+                .eq(UserAuth::getUserId, userId).orderByDesc(UserAuth::getId).last(" limit 1"));
+        return Result.success(userAuth);
+    }
+
+    @Override
     @Transactional(rollbackFor = Exception.class)
     public ResultVO submitAuth(UserAuthDTO userAuthDTO) {
         User user = userService.getById(userAuthDTO.getUserId());
+        if (user.getRealAuth().equals(EnumUserAuthStatus.AUDITING.getCode())) {
+            return Result.error(ResultEnum.USER_EXIST_AUTH_AUDIT);
+        }
         if (user.getRealAuth().equals(EnumUserAuthStatus.PASS.getCode())) {
             return Result.error(ResultEnum.USER_AUTH_PASS);
         }

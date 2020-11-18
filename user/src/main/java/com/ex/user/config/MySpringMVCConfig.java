@@ -13,12 +13,14 @@ public class MySpringMVCConfig implements WebMvcConfigurer {
     @Autowired
     private SessionInterceptor sessionInterceptor;
 
+    @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(sessionInterceptor)
                 .excludePathPatterns("/user/api/*/*/login")
                 .excludePathPatterns("/user/api/*/*/login/code")
                 .excludePathPatterns("/user/api/*/*/send/message")
                 .excludePathPatterns("/user/api/*/*/register")
+                .excludePathPatterns("/user/api/*/*//find/password")
                 .excludePathPatterns("/swagger-resources/**", "/webjars/**", "/v2/**", "/swagger-ui.html/**")
                 .addPathPatterns("/**");
     }

@@ -14,5 +14,8 @@ import com.ex.user.model.dto.UserAuthDTO;
  */
 public interface UserAuthService extends IService<UserAuth> {
 
+    ResultVO getAuth(Long userId);
+
     ResultVO submitAuth(UserAuthDTO userAuthDTO);
+
 }

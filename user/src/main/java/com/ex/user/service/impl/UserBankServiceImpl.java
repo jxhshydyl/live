@@ -1,8 +1,10 @@
 package com.ex.user.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.ex.model.entity.user.User;
 import com.ex.model.entity.user.UserBank;
+import com.ex.model.enums.EnumEither;
 import com.ex.model.enums.ResultEnum;
 import com.ex.model.enums.message.EnumMessageBusinessType;
 import com.ex.model.enums.user.EnumUserAuthStatus;
@@ -16,6 +18,8 @@ import com.ex.user.util.MessageUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * 服务接口实现
@@ -35,6 +39,15 @@ public class UserBankServiceImpl extends ServiceImpl<UserBankMapper, UserBank> i
 
     @Autowired
     private MessageUtil messageUtil;
+
+    @Override
+    public ResultVO getBank(Long userId) {
+        List<UserBank> userBanks = userBankMapper.selectList(new LambdaQueryWrapper<UserBank>()
+                .eq(UserBank::getUserId, userId)
+                .eq(UserBank::getStatus, EnumEither.EFFECTIVE.getCode())
+                .eq(UserBank::getIsDeleted,EnumEither.NOT_DELETE.getCode()));
+        return Result.success(userBanks);
+    }
 
     @Override
     public ResultVO bingBank(UserBankBindDTO userBankBindDTO) {

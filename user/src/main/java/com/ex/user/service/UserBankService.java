@@ -14,6 +14,8 @@ import com.ex.user.model.dto.UserBankBindDTO;
  */
 public interface UserBankService extends IService<UserBank> {
 
+    ResultVO getBank(Long userId);
+
     ResultVO bingBank(UserBankBindDTO userBankBindDTO);
 
 }

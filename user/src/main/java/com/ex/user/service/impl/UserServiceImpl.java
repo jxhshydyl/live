@@ -99,6 +99,13 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
                 }
             }
         }
+        if (businessType == EnumMessageBusinessType.FIND_LOGIN_PWD.getId()) {
+            User user = userMapper.selectOne(new LambdaQueryWrapper<User>()
+                    .eq(User::getUserName, receiveAddress));
+            if (user == null) {
+                return Result.error(ResultEnum.USER_NOT);
+            }
+        }
         String code = String.valueOf(new Random().nextInt(899999) + 100000);
         Message message = new Message();
         message.setUserId(userId);

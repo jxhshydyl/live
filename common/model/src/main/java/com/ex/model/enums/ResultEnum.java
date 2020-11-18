@@ -15,7 +15,6 @@ public enum ResultEnum {
     USER_NOT(10000, "用户不存在"),
     USER_NAME_EXISTS(10001, "用户名已存在"),
     USER_AUTH_PASS(10002, "用户已经实名认证"),
-    USER_AUTH_NOT(10012, "用户未实名认证"),
     USER_CART_NUMBER_USED(10003, "证件号已被认证"),
     MESSAGE_TYPE_ERROR(10004, "短信验证码类型错误"),
     MOBILE_USED(10005, "手机号已被使用"),
@@ -27,6 +26,8 @@ public enum ResultEnum {
     MESSAGE_SEND_FAIL(10011, "短信发送失败"),
     MESSAGE_ERROR(10011, "短信验证码错误"),
     USER_NAME_OR_PASSWORD_ERROR(10012, "用户名或密码错误"),
+    USER_AUTH_NOT(10013, "用户未实名认证"),
+    USER_EXIST_AUTH_AUDIT(10014, "用户存在未审核的实名认证"),
     /**file*/
     FILE_UPLOAD_ERROR(20000,"文件上传错误"),
 
