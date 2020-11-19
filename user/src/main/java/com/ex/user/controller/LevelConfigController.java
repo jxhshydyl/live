@@ -32,7 +32,7 @@ import java.util.List;
 @Slf4j
 @RestController
 @RequestMapping("/user/api/{device}/{version}")
-@Api(value = "level", tags = "等级权限信息")
+@Api(value = "level", tags = "配置-等级权限")
 public class LevelConfigController {
 
     @Autowired
@@ -42,7 +42,7 @@ public class LevelConfigController {
     private AuthConfigService authConfigService;
 
     @GetMapping("/level/config")
-    @ApiOperation(value = "获取等级权限信息")
+    @ApiOperation(value = "获取等级权限配置信息")
     public ResultVO getUserMember() {
         List<LevelConfig> list = levelConfigService.list(new LambdaQueryWrapper<LevelConfig>()
                 .eq(LevelConfig::getStatus, EnumEither.EFFECTIVE.getCode()));

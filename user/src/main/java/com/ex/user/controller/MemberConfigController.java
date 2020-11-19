@@ -30,14 +30,14 @@ import java.util.List;
 @Slf4j
 @RestController
 @RequestMapping("/user/api/{device}/{version}")
-@Api(value = "member", tags = "会员配置信息")
+@Api(value = "member", tags = "配置-会员")
 public class MemberConfigController {
 
     @Autowired
     public MemberConfigService memberConfigService;
 
     @GetMapping("/member/config")
-    @ApiOperation(value = "获取会员类型信息")
+    @ApiOperation(value = "获取会员类型配置信息")
     public ResultVO getMemberConfig() {
         List<MemberConfig> list = memberConfigService.list(new LambdaQueryWrapper<MemberConfig>()
                 .eq(MemberConfig::getStatus, EnumEither.EFFECTIVE.getCode()));

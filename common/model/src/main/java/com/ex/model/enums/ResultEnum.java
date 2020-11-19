@@ -31,6 +31,7 @@ public enum ResultEnum {
     USER_EXIST_AUTH_AUDIT(10014, "用户存在未审核的实名认证"),
     USER_BANK_EXIST(10015, "账户已被绑定"),
     USER_BANK_NOT(10016, "账户不存在"),
+    USER_SINGED(10017, "用户已签到"),
     /**file*/
     FILE_UPLOAD_ERROR(20000,"文件上传错误"),
 

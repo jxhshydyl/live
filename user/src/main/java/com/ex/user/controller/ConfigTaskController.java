@@ -29,14 +29,14 @@ import java.util.List;
 @Slf4j
 @RestController
 @RequestMapping("/user/api/{device}/{version}")
-@Api(value = "task", tags = "任务信息")
+@Api(value = "task", tags = "配置-任务")
 public class ConfigTaskController {
 
     @Autowired
     private ConfigTaskService configTaskService;
 
     @GetMapping("/task/config")
-    @ApiOperation(value = "获取任务信息")
+    @ApiOperation(value = "获取任务配置信息")
     public ResultVO getTaskConfig() {
         List<ConfigTask> list = configTaskService.list(new LambdaQueryWrapper<ConfigTask>()
                 .eq(ConfigTask::getStatus, EnumEither.EFFECTIVE.getCode()));

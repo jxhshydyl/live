@@ -10,7 +10,11 @@ public enum EnumEither {
     EFFECTIVE(1, "有效"),
 
     DELETE(1, "删除"),
-    NOT_DELETE(0, "未删除");
+    NOT_DELETE(0, "未删除"),
+
+    NO(0, "否"),
+    YES(1, "是"),
+    ;
     private int code;
     private String msg;
 

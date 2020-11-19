@@ -42,7 +42,14 @@ public class UserSignRecordServiceImpl extends ServiceImpl<UserSignRecordMapper,
         if (userInfo == null) {
             throw new BusinessException(ResultEnum.USER_NOT);
         }
-        Integer contDays = userInfo.getContDays() == null ? 0 : userInfo.getContDays();
+        String today = TimeUtil.getYMD(0);
+        UserSignRecord userSignRecord = userSignRecordMapper.selectOne(new LambdaQueryWrapper<UserSignRecord>()
+                .eq(UserSignRecord::getUserId, userId)
+                .eq(UserSignRecord::getDateTime, today));
+        if (userSignRecord != null) {
+            throw new BusinessException(ResultEnum.USER_SINGED);
+        }
+        int contDays = userInfo.getContDays() == null ? 0 : userInfo.getContDays();
         Date lastSignTime = userInfo.getLastSignTime();
         if (TimeUtil.isYesterday(lastSignTime)) {
             contDays = contDays + 1;
@@ -54,10 +61,11 @@ public class UserSignRecordServiceImpl extends ServiceImpl<UserSignRecordMapper,
         temp.setLastSignTime(new Date());
         temp.setContDays(contDays);
         userInfoService.updateById(temp);
-        UserSignRecord userSignRecord = new UserSignRecord();
+        userSignRecord = new UserSignRecord();
         userSignRecord.setUserId(userId);
         userSignRecord.setExp(0);
         userSignRecord.setIntegralNum(BigDecimal.ZERO);
+        userSignRecord.setDateTime(today);
         userSignRecordMapper.insert(userSignRecord);
         return Result.success();
     }
