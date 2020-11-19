@@ -1,4 +1,4 @@
-package com.ex.user.filter;
+package com.ex.asset.config;
 
 import com.alibaba.fastjson.JSON;
 import com.ex.model.constant.RedisKeyConstant;

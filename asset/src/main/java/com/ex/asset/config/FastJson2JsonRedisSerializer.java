@@ -1,4 +1,4 @@
-package com.ex.user.config;
+package com.ex.asset.config;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.parser.ParserConfig;
@@ -15,7 +15,7 @@ public class FastJson2JsonRedisSerializer<T> implements RedisSerializer<T> {
     private Class<T> clazz;
 
     static {
-//        ParserConfig.getGlobalInstance().addAccept("com.yibu.ex.model.asset.AssetVO");
+//        ParserConfig.getGlobalInstance().addAccept("com.yibu.ex.model.asset.AssetChangeVO");
     }
 
     public FastJson2JsonRedisSerializer(Class<T> clazz) {

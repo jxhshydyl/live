@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @Slf4j
 @RestController
-@RequestMapping("/accountChangeLog")
+@RequestMapping("/asset/api/{device}/{version}")
 public class AccountChangeLogController {
 
 }

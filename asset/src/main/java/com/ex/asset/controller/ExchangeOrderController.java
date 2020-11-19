@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @Slf4j
 @RestController
-@RequestMapping("/exchangeOrder")
+@RequestMapping("/asset/api/{device}/{version}")
 public class ExchangeOrderController {
 
 }
