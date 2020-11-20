@@ -2,7 +2,6 @@
  * @Title: DateUtils.java
  * @Package com.yijiu.eotc.commons.utils
  * @Description:
- * @author vDalf   2020年4月1日 下午2:36:53
  */
 package com.ex.util;
 
@@ -13,7 +12,6 @@ import java.util.Date;
 
 /**
  * @Description:
- * @author vDalf  2020年4月1日 下午2:36:53
  */
 public class DateUtils {
 
@@ -58,7 +56,6 @@ public class DateUtils {
      * 				Unable to obtain LocalDateTime from TemporalAccessor:...<br>
      * @return
      * @throws DateTimeParseException:传入的pattern是一个精确到日期的格式但是day传了false
-     * @author vDalf
      */
     public static Date parse(String text, DateTimeFormatter pattern, boolean day) {
         LocalDateTime localDateTime = null;

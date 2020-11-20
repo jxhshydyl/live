@@ -14,7 +14,6 @@ import java.util.concurrent.*;
 /**
  * 任务管理器
  * 
- * @author robot.guo
  */
 @Component
 public class TaskManager {

@@ -10,7 +10,6 @@ import org.springframework.stereotype.Component;
 /**
  * Spring 加载完之后调用
  *
- * @author robot.guo
  */
 @Component
 @Order(value = 1)

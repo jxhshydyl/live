@@ -12,7 +12,6 @@ import java.security.SecureRandom;
 /**
  * Aes 加密
  *
- * @author robot.guo
  */
 public class AesUtil {
 

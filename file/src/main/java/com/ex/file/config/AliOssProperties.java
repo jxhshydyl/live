@@ -2,7 +2,6 @@
 * @Title: AliOssProperties.java  
 * @Package com.yijiu.eotc.commons.spring.config  
 * @Description:   
-* @author vDalf   2020年5月27日 下午6:59:26
 */
 package com.ex.file.config;
 
@@ -11,7 +10,6 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 /**  
  * @ClassName: AliOssProperties  
  * @Description:  
- * @author vDalf  2020年5月27日 下午6:59:26
  */
 @ConfigurationProperties(prefix = "app.oss")
 public class AliOssProperties {

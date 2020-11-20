@@ -2,7 +2,6 @@
 * @Title: Constants.java  
 * @Package com.yijiu.eotc.commons.utils  
 * @Description:   
-* @author vDalf   2020年3月26日 下午12:24:53
 */
 package com.ex.model.constant;
 

@@ -8,7 +8,6 @@ import java.util.Random;
 /**
  * @ClassName: RandomUtils
  * @Description: 随机工具类<br>
- * @author vDalf  2020年5月9日 下午9:03:01
  */
 public class RandomUtils {
 

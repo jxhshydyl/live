@@ -36,7 +36,6 @@ import java.util.Date;
 import java.util.UUID;
 
 /**
- * @author vDalf  2020年5月27日 下午6:17:48
  * @ClassName: FileService
  * @Description:
  */

@@ -2,7 +2,6 @@
 * @Title: EnumMessageType.java  
 * @Package com.yijiu.eotc.mgs.enums  
 * @Description:   
-* @author vDalf   2020年4月17日 下午3:13:06
 */
 package com.ex.model.enums.message;
 
@@ -12,7 +11,6 @@ import java.util.stream.Stream;
 /**  
 * @ClassName: EnumMessageType  
 * @Description:  
-* @author vDalf  2020年4月17日 下午3:13:06
 */
 public enum EnumMessageType {
 	

@@ -9,7 +9,6 @@ import javax.annotation.PreDestroy;
 /**
  * 项目停止时，销毁连接池
  *
- * @author robot.guo
  */
 @Component
 public class WebDestroyAction {

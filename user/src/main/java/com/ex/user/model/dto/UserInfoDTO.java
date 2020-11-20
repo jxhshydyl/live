@@ -5,7 +5,6 @@ import lombok.Data;
 import javax.validation.constraints.Null;
 
 /**
- * @Author: yibu
  * @Date: 17/11/2020 下午 4:10
  * @Version: 1.0
  * @Description:

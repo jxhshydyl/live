@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 import javax.mail.MessagingException;
 
 /**
- * @Author: liuweipeng
  * @Date: 5/6/2020 下午 9:52
  * @Version: 1.0
  * @Description:

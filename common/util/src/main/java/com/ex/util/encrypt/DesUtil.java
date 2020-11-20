@@ -9,7 +9,6 @@ import java.security.SecureRandom;
 /**
  * Des加密
  *
- * @author robot.guo
  */
 public class DesUtil {
 

@@ -2,7 +2,6 @@
  * @Title: SessionUser.java
  * @Package com.yijiu.eotc.portal.entities
  * @Description:
- * @author vDalf   2020年5月8日 下午4:38:07
  */
 package com.ex.model.vo;
 

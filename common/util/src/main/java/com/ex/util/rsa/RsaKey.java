@@ -4,7 +4,6 @@ import java.io.Serializable;
 
 /***
  * 定义用户登录时的Rsa信息  公钥以及私钥
- * @author apple
  */
 public class RsaKey implements Serializable {
     /**
