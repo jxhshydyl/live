@@ -26,6 +26,8 @@ public class MySpringMVCConfig implements WebMvcConfigurer {
                 .excludePathPatterns("/user/api/*/*/member/config")
                 .excludePathPatterns("/user/api/*/*/member/privilege")
                 .excludePathPatterns("/user/api/*/*/task/config")
+                .excludePathPatterns("/user/api/*/*/asset/config")
+                .excludePathPatterns("/user/api/*/*/gift/config")
                 .excludePathPatterns("/swagger-resources/**", "/webjars/**", "/v2/**", "/swagger-ui.html/**")
                 .addPathPatterns("/**");
     }
